@@ -63,6 +63,27 @@ textarea{width:100%;min-height:54px;border:1px solid rgba(255,255,255,.2);border
 .toast{position:fixed;right:22px;bottom:22px;z-index:50;background:rgba(11,44,34,.95);color:#fff;padding:11px 16px;border-radius:10px;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:none}
 a{color:var(--blue)}button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid rgba(39,125,150,.35);outline-offset:2px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.hr{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:2px 0}
+.tw table.full{width:max-content;min-width:100%}.tw table.full th,.tw table.full td{white-space:nowrap}.tw table.full td{max-width:260px;overflow:hidden;text-overflow:ellipsis}
+tr.rowlink,.kpi.rowlink{cursor:pointer}tr.rowlink:focus-visible,.kpi.rowlink:focus-visible{outline:2px solid rgba(39,125,150,.55);outline-offset:-2px}
+tr.hl td{animation:hl 3.2s ease-out}.card.hl{animation:hlc 3.2s ease-out}
+@keyframes hl{0%,65%{background:#fff0a8}100%{background:transparent}}
+@keyframes hlc{0%,65%{box-shadow:0 0 0 3px #f0c93c,var(--shadow)}100%{box-shadow:var(--shadow)}}
+.lnk{color:var(--blue);text-decoration:none;border-bottom:1px dotted currentColor}.lnk:hover{color:var(--green2)}
+.tgl{border:1px solid var(--line);background:#fff;border-radius:99px;padding:1px 12px;font-size:13px;cursor:pointer;color:var(--green2);margin-left:10px}.tgl.on{background:var(--green);color:#fff;border-color:var(--green)}
+.hint{font-size:13px;color:var(--muted);margin-left:8px}.fnote{font-size:13px;color:var(--muted);margin:0 0 6px}
+.fbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.fbar label{color:var(--muted);font-size:13px}
+.fbar select,.fbar input{font:inherit;border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 10px;color:var(--ink);margin-left:6px}.fbar input{min-width:220px}
+.btn.sm{padding:3px 12px;font-size:13px;border-radius:99px;text-decoration:none;display:inline-block;color:var(--ink);line-height:1.6}.btn.sm.go{border-color:#bfe3d0;color:var(--green2);background:#f1faf5}.btn.sm.fs{border-color:#c4dde7;color:var(--blue);background:#f1f8fb}.btn.sm[disabled]{opacity:.5;cursor:default}
+.chg{padding:11px 0;border-bottom:1px solid #edf1ee}.chg:last-child{border-bottom:0}
+.chg .hd{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap}.chg time{color:var(--muted);font-size:13px}.chg .tn,.chg .lb{font-weight:700}.chg .act{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.diff{margin-top:6px;display:grid;grid-template-columns:max-content minmax(0,1fr);gap:3px 16px;font-size:13px}.diff .k{color:var(--muted)}.diff .o{color:var(--red);text-decoration:line-through;word-break:break-all}.diff .n{color:var(--green2);font-weight:600;word-break:break-all}.diff .ar{color:var(--muted);margin:0 8px}
+.drawer-bg{position:fixed;inset:0;background:rgba(10,30,22,.35);z-index:60;opacity:0;pointer-events:none;transition:opacity .2s}.drawer-bg.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,100vw);z-index:61;background:#fbfdf9;box-shadow:-18px 0 50px rgba(9,46,35,.18);transform:translateX(105%);transition:transform .22s;display:flex;flex-direction:column;visibility:hidden}.drawer.on{transform:none;visibility:visible}
+.drawer .dh{padding:14px 18px 10px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}.dh h3{margin:0;font-size:17px;line-height:1.35}.dh small{display:block;color:var(--muted);font-size:13px}.dh .x{margin-left:auto;border:0;background:transparent;font-size:24px;line-height:1;cursor:pointer;color:var(--muted);padding:2px 8px}
+.drawer .db{padding:10px 18px 30px;overflow-y:auto;flex:1}.drawer .acts{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+.kv{display:grid;grid-template-columns:minmax(96px,max-content) minmax(0,1fr);gap:0 16px}.kv>div{padding:6px 0;border-bottom:1px solid #edf1ee;word-break:break-word}.kv .k{color:var(--muted);font-size:13px}
+.dsec small{display:block;font-size:13px}.drawer h4{margin:16px 0 2px;font-size:14px}.dsec+.dsec{margin-top:24px;padding-top:12px;border-top:2px solid var(--line)}
 @media(max-width:1180px){.sec{display:none}}
 @media(max-width:1100px){.grid2{grid-template-columns:1fr}}
 @media(max-width:860px){.shell{display:block}.side{min-height:0}.side-in{position:relative;height:auto;padding:12px;overflow:visible}.brand{padding-bottom:10px}.gt,.foot .l2{display:none}.side nav{display:flex;gap:6px;overflow-x:auto}.nav{flex:0 0 auto;width:auto;padding:7px 12px}.nav .tag,.nav .demo-tag{margin-left:4px}.nav.active:before{display:none}.foot{margin-top:10px}main{padding:18px 12px 40px}.top{flex-direction:column}.top h1{font-size:23px}}
@@ -79,9 +100,10 @@ a{color:var(--blue)}button:focus-visible,a:focus-visible,textarea:focus-visible{
 <button class="nav" data-p="purchase">采购<span class="tag" id="nBuy" hidden></span></button>
 <button class="nav" data-p="finance">财务<span class="demo-tag">示例</span></button>
 <div class="gt">追溯与治理</div>
+<button class="nav" data-p="tables">数据表<span class="demo-tag" id="nTbl"></span></button>
 <button class="nav" data-p="logs">协作日志</button></nav>
 <div class="foot" id="foot"><span class="dot warn"></span><b>正在连接飞书…</b></div></div></aside>
-<main id="app" tabindex="-1"></main></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<main id="app" tabindex="-1"></main></div><div class="drawer-bg" id="dbg"></div><aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="记录详情" aria-hidden="true"></aside><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 'use strict';
 const $=s=>document.querySelector(s);
@@ -91,8 +113,8 @@ const num=v=>{const x=Array.isArray(v)?v[0]:v;const n=+x;return Number.isFinite(
 const pct=n=>Math.round(n*100)+'%';
 const sum=(a,k)=>a.reduce((s,r)=>s+num(r[k]),0);
 const day=v=>String(arr(v)).replace(/T.*/,'');
-const PAGES=['overview','assistant','production','warehouse','purchase','finance','logs'];
-const state={data:null,status:null,changes:[],err:null,tab:'records',page:'overview',live:false,fetchFail:false,seq:null};
+const PAGES=['overview','assistant','production','warehouse','purchase','finance','tables','logs'];
+const state={data:null,status:null,changes:[],err:null,tab:'records',page:'overview',live:false,fetchFail:false,seq:null,full:{},dt:null,dtq:'',lf:{tn:'',type:'',n:40},drawer:null,hl:null};
 const LOW=0.3;
 
 /* ---------- 时间 ---------- */
@@ -104,7 +126,7 @@ const ago=iso=>{if(!iso)return '—';const s=Math.max(0,(Date.now()-new Date(iso
 async function getJSON(u){const r=await fetch(u,{cache:'no-store'});const b=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(b.error||('HTTP '+r.status));e.status=r.status;throw e}return b}
 async function loadData(){
   try{const d=await getJSON('/api/base/data');state.data=d;state.seq=d.seq;state.status=d.status;state.err=null;state.fetchFail=false;
-    try{state.changes=(await getJSON('/api/base/changes?limit=60')).changes||[]}catch{}
+    try{state.changes=(await getJSON('/api/base/changes?limit=500')).changes||[]}catch{}
   }catch(e){state.err=e.status===503?'飞书数据尚未完成首次同步，请稍候…':'无法读取数据：'+e.message;state.fetchFail=!state.data}
   paint();
 }
@@ -152,16 +174,117 @@ function model(){
 const stCls=s=>({生产中:'b',测试完成:'g',已领料:'o',待生产:'r',已发货:'b',已完成:'g',已签收:'g',待发货:'o'}[s]||'');
 const pill=s=>`<span class="pill ${stCls(s)}">${esc(arr(s))||'—'}</span>`;
 const bar=(v,low)=>`<div class="bar ${low?'low':''}"><div style="width:${Math.max(0,Math.min(100,v*100))}%"></div></div>`;
-const src=(names,note)=>{const t=state.data&&state.data.synced_at;return `<span class="src"><b>飞书 · ${esc(names)}</b>${note?' · '+esc(note):''} · 同步于 ${fmtT(t)}</span>`};
+/* ---------- 飞书链接 / 字段格式化 / 详情抽屉 / 定位 ---------- */
+const tbl=n=>(state.data&&state.data.tables[n])||null;
+const tUrl=n=>{const t=tbl(n);return t?t.url:null};
+const recUrl=(n,rid)=>{const u=tUrl(n);return u?(rid?u+'&record='+encodeURIComponent(rid):u):null};
+const tnById=id=>{const d=state.data;if(!d||!id)return null;for(const [n,t] of Object.entries(d.tables))if(t.table_id===id)return n;return null};
+const ext=(u,txt,cls,tt)=>u?`<a class="${cls}" href="${esc(u)}" target="_blank" rel="noopener noreferrer"${tt?` title="${esc(tt)}"`:''}>${txt}</a>`:'';
+const isEmpty=v=>v==null||v===''||(Array.isArray(v)&&!v.length);
+const plain=v=>isEmpty(v)?'':Array.isArray(v)?v.join('、'):typeof v==='boolean'?(v?'是':'否'):String(v);
+const ISOD=/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\+08:00$/;
+function fvText(name,v){
+  if(Array.isArray(v))return v.join('、');
+  if(typeof v==='number')return (/率|进度/.test(name)&&v<=1)?pct(v):v.toLocaleString('zh-CN');
+  if(typeof v==='boolean')return v?'是':'否';
+  if(typeof v==='string'&&ISOD.test(v))return v.endsWith('T00:00:00+08:00')?v.slice(0,10):v.slice(0,16).replace('T',' ');
+  return String(v);
+}
+const fv=(n,v)=>isEmpty(v)?'<span class="mut">—</span>':esc(fvText(n,v));
+const dv=(n,v)=>{if(isEmpty(v))return '<span class="mut">空</span>';const s=fvText(n,v);return esc(s.length>60?s.slice(0,60)+'…':s)};
+const bjf=new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+const fmtTF=iso=>iso?bjf.format(new Date(iso)).replace(/\//g,'-'):'—';
+const ID_F=['领料单号','发货单号','生产记录编号','工单号','产品编码','编码','S\\N','型号','名称'];
+function recLabel(r){for(const k of ID_F){if(!isEmpty(r[k]))return plain(r[k])}for(const [k,v] of Object.entries(r))if(k!=='record_id'&&typeof v==='string'&&v)return v;return r.record_id}
+const LOC={'生产完成汇总表':{p:'production'},'生产工单':{p:'production'},'生产记录':{p:'production',tab:'records'},'变频器使用情况记录':{p:'production',tab:'after'},'变频器故障记录':{p:'production',tab:'after'},'领料记录':{p:'warehouse'},'发货清单':{p:'warehouse'},'产品物料基础资料':{p:'warehouse'}};
+const refs=(r,tn,ids)=>{const a=ids?ids(r):(tn&&r&&r.record_id?[[tn,r.record_id]]:[]);return a.filter(x=>x&&x[0]&&x[1])};
+const rowAttr=(r,tn,ids,cls)=>{const a=refs(r,tn,ids);return a.length?` class="rowlink ${cls||''}" tabindex="0" data-rs="${esc(';'+a.map(x=>x[0]+'|'+x[1]).join(';')+';')}" title="点击查看该记录的全部字段"`:` class="${cls||''}"`};
+const parseRs=s=>String(s).split(';').filter(Boolean).map(x=>{const i=x.indexOf('|');return [x.slice(0,i),x.slice(i+1)]});
+const tgl=n=>`<button class="tgl${state.full[n]?' on':''}" data-full="${esc(n)}" aria-pressed="${state.full[n]?'true':'false'}" title="切换：精简列 / 该表全部字段">${state.full[n]?'✓ 全部字段':'全部字段'}</button><span class="hint">点击行看详情</span>`;
+function fullTable(tn,recs){
+  const t=tbl(tn);if(!t)return '<div class="empty">无数据</div>';
+  return `<div class="fnote">共 ${t.fields.length} 个字段 · ${recs.length} 条记录 · 可左右滚动查看全部字段</div><div class="tw"><table class="full"><thead><tr>${t.fields.map(f=>`<th>${esc(f.name)}</th>`).join('')}</tr></thead><tbody>${recs.map(r=>`<tr${rowAttr(r,tn,null,'')}>${t.fields.map(f=>`<td title="${esc(plain(r[f.name]))}">${fv(f.name,r[f.name])}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${t.fields.length}" class="empty">暂无记录</td></tr>`}</tbody></table></div>`;
+}
+function diffHTML(c){
+  const d=c.diff;
+  if(!d){const f=c.fields||[];return f.length?`<div class="chips" style="margin-top:6px">${f.map(x=>`<span class="chip">${esc(x)}</span>`).join('')}<span class="hint">（旧日志未保存具体数值）</span></div>`:''}
+  const ks=Object.keys(d);if(!ks.length)return '';
+  const row=k=>{const o=d[k]||{},nm=esc(k);
+    if(c.type==='added')return `<div class="k">${nm}</div><div><span class="n">${dv(k,o.to)}</span></div>`;
+    if(c.type==='removed')return `<div class="k">${nm}</div><div><span class="o">${dv(k,o.from)}</span></div>`;
+    return `<div class="k">${nm}</div><div><span class="o">${dv(k,o.from)}</span><span class="ar">→</span><span class="n">${dv(k,o.to)}</span></div>`};
+  return `<div class="diff">${ks.slice(0,12).map(row).join('')}${ks.length>12?`<div class="k">…</div><div class="mut">另有 ${ks.length-12} 个字段</div>`:''}</div>`;
+}
+const CHG_LAB={added:'新增',updated:'更新',removed:'删除',table_added:'新增数据表',table_removed:'删除数据表',initial_sync:'首次同步'};
+function chgItem(c){
+  const tn=tnById(c.table_id)||c.table||'',t=tbl(tn);
+  const cls=c.type==='added'?'g':c.type==='removed'?'r':c.type==='updated'?'b':'';
+  const time=`<time datetime="${esc(c.ts)}">${fmtTF(c.ts)}（北京时间）</time>`;
+  const pl=`<span class="pill ${cls}">${CHG_LAB[c.type]||esc(c.type)}</span>`;
+  if(c.type==='initial_sync'){const cn=c.counts||{};const tot=Object.values(cn).reduce((a,b)=>a+b,0);
+    return `<div class="chg"><div class="hd">${time}${pl}<span class="lb">首次同步 ${tot} 条记录</span></div><div class="chips" style="margin-top:6px">${Object.entries(cn).map(([n,k])=>`<span class="chip">${tUrl(n)?ext(tUrl(n),esc(n)+' ↗','lnk'):esc(n)} ${k} 条</span>`).join('')}</div></div>`}
+  const tname=`<span class="tn">${t?ext(t.url,esc(tn)+' ↗','lnk','在飞书中打开该数据表'):esc(tn)}</span>`;
+  const isRec=c.type==='added'||c.type==='updated'||c.type==='removed';
+  let acts='';
+  if(c.type==='added'||c.type==='updated'){
+    const ex=!!(t&&t.records.some(r=>r.record_id===c.record_id));
+    acts=ex?`<button class="btn sm go" data-loc="${esc(tn+'|'+c.record_id)}">在工作台定位</button>${ext(recUrl(tn,c.record_id),'在飞书中打开 ↗','btn sm fs')}`
+      :`<button class="btn sm go" disabled title="该记录当前已不存在">在工作台定位</button>${ext(tUrl(tn),'在飞书中打开数据表 ↗','btn sm fs')}`;
+  }else if(c.type==='removed'||c.type==='table_added'){
+    acts=(t?`<button class="btn sm go" data-loct="${esc(tn)}">在工作台查看该表</button>`:'')+ext(tUrl(tn),'在飞书中打开数据表 ↗','btn sm fs');
+  }
+  const cnt=c.type==='table_added'&&c.count!=null?`<span class="mut">${c.count} 条记录</span>`:'';
+  return `<div class="chg"><div class="hd">${time}${pl}${tname}${isRec?`<span class="lb">${esc((t&&t.records.find(r=>r.record_id===c.record_id)&&recLabel(t.records.find(r=>r.record_id===c.record_id)))||c.label||'')}</span>`:''}${cnt}<span class="act">${acts}</span></div>${isRec?diffHTML(c):''}</div>`;
+}
+function drawerSec(tn,rid){
+  const t=tbl(tn),rec=t&&t.records.find(r=>r.record_id===rid);
+  if(!rec)return `<div class="dsec"><small class="mut">${esc(tn)}</small><h3>记录不存在或已被删除</h3>${t?`<div class="acts">${ext(t.url,'在飞书中打开数据表 ↗','btn sm fs')}</div>`:''}</div>`;
+  const hist=state.changes.filter(c=>c.record_id===rid).sort((a,b)=>b.seq-a.seq).slice(0,5);
+  return `<div class="dsec"><small class="mut">${esc(tn)}</small><h3 style="margin:0;font-size:18px">${esc(recLabel(rec))}</h3>
+  <div class="acts"><button class="btn sm go" data-loc="${esc(tn+'|'+rid)}">在工作台定位</button>${ext(recUrl(tn,rid),'在飞书中打开 ↗','btn sm fs')}</div>
+  <div class="kv">${t.fields.map(f=>`<div class="k">${esc(f.name)}</div><div>${fv(f.name,rec[f.name])}</div>`).join('')}</div>
+  <h4>最近变更（北京时间）</h4>${hist.length?hist.map(c=>`<div class="chg"><div class="hd"><time>${fmtTF(c.ts)}</time><span class="pill ${c.type==='added'?'g':c.type==='updated'?'b':'r'}">${CHG_LAB[c.type]||esc(c.type)}</span></div>${diffHTML(c)}</div>`).join(''):'<div class="mut">同步以来该记录没有变更</div>'}
+  <div class="mut" style="margin-top:10px">记录 ID：${esc(rid)}</div></div>`;
+}
+function renderDrawer(focus){
+  const d=$('#drawer'),bg=$('#dbg');if(!d)return;
+  if(!state.drawer){d.classList.remove('on');bg.classList.remove('on');d.setAttribute('aria-hidden','true');return}
+  const old=d.querySelector('.db'),top=old?old.scrollTop:0;
+  d.innerHTML=`<div class="dh"><div><h3>记录详情</h3><small>字段按飞书表格顺序全部列出 · 按 Esc 或点击遮罩关闭</small></div><button class="x" id="dx" aria-label="关闭">×</button></div><div class="db">${state.drawer.map(x=>drawerSec(x[0],x[1])).join('')}</div>`;
+  d.classList.add('on');bg.classList.add('on');d.setAttribute('aria-hidden','false');
+  d.querySelector('.db').scrollTop=top;
+  $('#dx').onclick=()=>closeDrawer();
+  d.querySelectorAll('[data-loc]').forEach(b=>b.onclick=()=>{const i=b.dataset.loc.indexOf('|');locate(b.dataset.loc.slice(0,i),b.dataset.loc.slice(i+1))});
+  if(focus)$('#dx').focus();
+}
+function openDrawer(rs){state.drawer=rs;state.lastFocus=document.activeElement;renderDrawer(true)}
+function closeDrawer(){if(!state.drawer)return;state.drawer=null;renderDrawer();const f=state.lastFocus;if(f&&f.isConnected)try{f.focus({preventScroll:true})}catch{}}
+function findRow(tn,rid){const key=';'+tn+'|'+rid+';';for(const e of document.querySelectorAll('#app [data-rs]'))if(String(e.dataset.rs).includes(key))return e;return null}
+function goPage(p){if(state.page===p)route();else location.hash='#/'+p}
+function locate(tn,rid){
+  state.drawer=null;renderDrawer();
+  const L=LOC[tn],page=L?L.p:'tables';
+  if(page==='production'&&L.tab)state.tab=L.tab;
+  if(page==='tables'){state.dt=tn;state.dtq=''}
+  state.hl={tn,rid,page};goPage(page);
+}
+function applyHL(){
+  const h=state.hl;if(!h)return;state.hl=null;
+  const e=findRow(h.tn,h.rid);
+  if(e){e.scrollIntoView({block:'center',behavior:'smooth'});e.classList.add('hl');setTimeout(()=>e.classList.remove('hl'),3300);return}
+  if(h.page!=='tables'&&tbl(h.tn)){state.dt=h.tn;state.dtq='';state.hl={tn:h.tn,rid:h.rid,page:'tables'};toast('该记录不在精简视图中，已跳转到「数据表」页');goPage('tables');return}
+  toast('未找到该记录（可能已在飞书中被删除）');
+}
+const src=(names,note)=>{const t=state.data&&state.data.synced_at;const nm=String(names).split(/\s*\+\s*/).map(n=>tUrl(n)?ext(tUrl(n),esc(n)+' ↗','lnk','在飞书中打开该数据表'):esc(n)).join(' + ');return `<span class="src"><b>飞书 · ${nm}</b>${note?' · '+esc(note):''} · 同步于 ${fmtT(t)}</span>`};
 const demoSrc=()=>`<span class="src demo"><b>示例数据</b> · 非飞书真实数据</span>`;
-const H=(t,right)=>`<div class="h"><h2>${t}</h2>${right||''}</div>`;
-const kpi=(l,v,n,cls,go)=>`<div class="card kpi ${go?'link':''}" ${go?`data-go="${go}"`:''}><small>${l}</small><b>${v}</b><em class="${cls||''}">${n}</em></div>`;
+const H=(t,right)=>`<div class="h"><h2>${t}</h2>${right?`<div class="hr">${right}</div>`:''}</div>`;
+const kpi=(l,v,n,cls,go,rs)=>`<div class="card kpi ${go?'link':''}${rs?' rowlink':''}" ${go?`data-go="${go}"`:''}${rs?` data-rs="${esc(rs)}" tabindex="0"`:''}><small>${l}</small><b>${v}</b><em class="${cls||''}">${n}</em></div>`;
 const head=(t,s,badge)=>`<div class="top"><div><div class="eyebrow">AI OPERATIONS CONSOLE</div><h1>${t}</h1><div class="sub">${s}</div></div>${badge===undefined?liveBadge():badge}</div>`;
 const demoBadge='<span class="badge demo">示例数据</span>';
 function liveBadge(){const s=state.status;if(!s||state.fetchFail)return '<span class="badge demo">未连接</span>';return `<span class="badge"><span class="dot ${s.ok?'':'warn'}"></span>飞书${s.mode==='push'?'实时推送':'数据'} · ${ago(s.last_sync_at)}同步</span>`}
 const alertList=(list,n)=>list.slice(0,n).map(a=>`<div class="alert"><div class="sev ${a.lv}"></div><div><b>${esc(a.t)}</b><span>${esc(a.dept)} · ${esc(a.s)}</span></div></div>`).join('')||'<div class="empty">暂无需要关注的事项 🎉</div>';
-function woTable(m,compact){const c=!!compact;return `<div class="tw"><table><thead><tr><th class="nw">工单号</th><th class="prod">产品</th><th>状态</th><th style="width:120px">进度</th><th class="r nw">完工/计划</th>${c?'':'<th class="r sec">合格</th><th class="r">不良</th><th class="r">已发货</th>'}</tr></thead><tbody>${m.W.map(w=>`<tr class="${m.odd.includes(w)?'warn':''}"><td class="nw">${esc(w['工单号'])}</td><td class="prod" title="${esc(arr(w['产品名称']))}">${esc(arr(w['产品名称']))}</td><td>${pill(w['当前状态'])}</td><td>${bar(num(w['生产进度']))}</td><td class="r nw">${num(w['已完工数量'])}/${num(w['计划数量'])}</td>${c?'':`<td class="r sec">${num(w['合格数量'])}</td><td class="r">${num(w['不良数量'])}</td><td class="r">${num(w['已发货数量'])}</td>`}</tr>`).join('')||`<tr><td colspan="${c?5:8}" class="empty">暂无工单</td></tr>`}</tbody></table></div>`}
-function table(cols,rows,rowCls){return `<div class="tw"><table><thead><tr>${cols.map(c=>`<th class="${c.cls||''}">${c.h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr class="${rowCls?rowCls(r):''}">${cols.map(c=>`<td class="${c.cls||''}">${c.f(r)}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${cols.length}" class="empty">暂无记录</td></tr>`}</tbody></table></div>`}
+function woTable(m,compact){if(state.full['生产工单'])return fullTable('生产工单',m.W);const c=!!compact;return `<div class="tw"><table><thead><tr><th class="nw">工单号</th><th class="prod">产品</th><th>状态</th><th style="width:120px">进度</th><th class="r nw">完工/计划</th>${c?'':'<th class="r sec">合格</th><th class="r">不良</th><th class="r">已发货</th>'}</tr></thead><tbody>${m.W.map(w=>`<tr${rowAttr(w,'生产工单',null,m.odd.includes(w)?'warn':'')}><td class="nw">${esc(w['工单号'])}</td><td class="prod" title="${esc(arr(w['产品名称']))}">${esc(arr(w['产品名称']))}</td><td>${pill(w['当前状态'])}</td><td>${bar(num(w['生产进度']))}</td><td class="r nw">${num(w['已完工数量'])}/${num(w['计划数量'])}</td>${c?'':`<td class="r sec">${num(w['合格数量'])}</td><td class="r">${num(w['不良数量'])}</td><td class="r">${num(w['已发货数量'])}</td>`}</tr>`).join('')||`<tr><td colspan="${c?5:8}" class="empty">暂无工单</td></tr>`}</tbody></table></div>`}
+function table(cols,rows,rowCls,tn,ids){if(tn&&state.full[tn])return fullTable(tn,rows);return `<div class="tw"><table><thead><tr>${cols.map(c=>`<th class="${c.cls||''}">${c.h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr${rowAttr(r,tn,ids,rowCls?rowCls(r):'')}>${cols.map(c=>`<td class="${c.cls||''}">${c.f(r)}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${cols.length}" class="empty">暂无记录</td></tr>`}</tbody></table></div>`}
 
 /* ---------- 页面(真实数据) ---------- */
 const pages={
@@ -169,7 +292,7 @@ overview(m){
   const plan=sum(m.S,'计划生产套数'),ok=sum(m.S,'合格套数'),ship=sum(m.S,'已发货套数');
   return head('总览',`${m.W.length} 张工单 · ${m.S.length} 个产品 · ${m.mats.length} 种物料 · 数字全部来自飞书多维表格`)+
   `<div class="kpis">${kpi('计划生产',plan+' 套',m.S.length+' 个产品')}${kpi('合格完成',ok+' 套','占计划 '+(plan?pct(ok/plan):'—'))}${kpi('已发货',ship+' 套','发货单 '+m.F.length+' 张')}${kpi('待处理',m.alerts.length+' 项',m.urgent+' 项需立即核对',m.urgent?'r':'')}</div>
-  <div class="grid2"><div>${H('生产工单进度',src('生产工单'))}<div class="card panel">${woTable(m,true)}</div></div>
+  <div class="grid2"><div>${H('生产工单进度',src('生产工单')+tgl('生产工单'))}<div class="card panel">${woTable(m,true)}</div></div>
   <div>${H('需要关注',`<span class="src">由各部门 Agent 汇总</span>`)}<div class="card panel">${alertList(m.alerts,6)}</div></div></div>
   ${H('部门 Agent 状态','<span class="src">点击进入部门工作台</span>')}<div class="kpis">
   ${kpi('生产 Agent',m.W.filter(w=>w['当前状态']==='生产中').length+' 张在产',m.odd.length?m.odd.length+' 项状态待核对':'工单状态正常',m.odd.length?'r':'','production')}
@@ -178,30 +301,43 @@ overview(m){
   ${kpi('财务 Agent','示例数据','待接入成本字段','','finance')}</div>`},
 
 production(m){
-  const rec=table([{h:'记录',f:r=>esc(r['生产记录编号'])},{h:'日期',cls:'nw',f:r=>day(r['生产日期'])},{h:'工单',cls:'nw',f:r=>esc(arr(r['工单号']))},{h:'产品',cls:'sec prod',f:r=>`<span title="${esc(arr(r['产品名称']))}">${esc(arr(r['产品名称']))}</span>`},{h:'完工',cls:'r',f:r=>num(r['完工数量'])},{h:'不良',cls:'r',f:r=>num(r['不良数量'])},{h:'不良原因',cls:'tx',f:r=>esc(arr(r['不良原因']))},{h:'生产异常',cls:'sec',f:r=>esc(arr(r['生产异常']))}],m.R.slice().sort((a,b)=>String(day(b['生产日期'])).localeCompare(day(a['生产日期']))));
+  const rec=table([{h:'记录',f:r=>esc(r['生产记录编号'])},{h:'日期',cls:'nw',f:r=>day(r['生产日期'])},{h:'工单',cls:'nw',f:r=>esc(arr(r['工单号']))},{h:'产品',cls:'sec prod',f:r=>`<span title="${esc(arr(r['产品名称']))}">${esc(arr(r['产品名称']))}</span>`},{h:'完工',cls:'r',f:r=>num(r['完工数量'])},{h:'不良',cls:'r',f:r=>num(r['不良数量'])},{h:'不良原因',cls:'tx',f:r=>esc(arr(r['不良原因']))},{h:'生产异常',cls:'sec',f:r=>esc(arr(r['生产异常']))}],m.R.slice().sort((a,b)=>String(day(b['生产日期'])).localeCompare(day(a['生产日期']))),null,'生产记录');
   const sns=[...new Set([...m.VU.map(x=>x['S\\N']),...m.VF.map(x=>x['S\\N'])].filter(Boolean))];
   const vf=sns.map(sn=>({sn,u:m.VU.find(x=>x['S\\N']===sn)||{},f:m.VF.filter(x=>x['S\\N']===sn)}));
-  const after=table([{h:'序列号',cls:'nw',f:r=>esc(r.sn)},{h:'型号',cls:'nw',f:r=>esc(arr(r.u['型号']||(r.f[0]||{})['型号']))},{h:'使用情况',cls:'tx',f:r=>esc(arr(r.u['备注']))||'<span class="mut">—</span>'},{h:'更换',f:r=>r.u['更换']?pill(r.u['更换']==='是'?'已更换':'未更换').replace('pill','pill '+(r.u['更换']==='是'?'o':'')):'—'},{h:'返厂故障',cls:'tx',f:r=>r.f.map(x=>esc(arr(x['返厂故障原因']))).join('；')||'<span class="mut">无</span>'},{h:'维修事项',cls:'sec',f:r=>r.f.map(x=>esc(arr(x['维修事项']))).join('；')},{h:'返厂/完成',cls:'sec nw',f:r=>r.f.map(x=>day(x['返厂时间'])+' → '+(day(x['维修完成时间'])||'维修中')).join('<br>')}],vf);
+  const after=table([{h:'序列号',cls:'nw',f:r=>esc(r.sn)},{h:'型号',cls:'nw',f:r=>esc(arr(r.u['型号']||(r.f[0]||{})['型号']))},{h:'使用情况',cls:'tx',f:r=>esc(arr(r.u['备注']))||'<span class="mut">—</span>'},{h:'更换',f:r=>r.u['更换']?pill(r.u['更换']==='是'?'已更换':'未更换').replace('pill','pill '+(r.u['更换']==='是'?'o':'')):'—'},{h:'返厂故障',cls:'tx',f:r=>r.f.map(x=>esc(arr(x['返厂故障原因']))).join('；')||'<span class="mut">无</span>'},{h:'维修事项',cls:'sec',f:r=>r.f.map(x=>esc(arr(x['维修事项']))).join('；')},{h:'返厂/完成',cls:'sec nw',f:r=>r.f.map(x=>day(x['返厂时间'])+' → '+(day(x['维修完成时间'])||'维修中')).join('<br>')}],vf,null,null,r=>[...(r.u.record_id?[['变频器使用情况记录',r.u.record_id]]:[]),...r.f.map(x=>['变频器故障记录',x.record_id])]);
+  const afterFull=`<div class="mut" style="margin:4px 0">变频器使用情况记录</div>${fullTable('变频器使用情况记录',m.VU)}<div class="mut" style="margin:12px 0 4px">变频器故障记录</div>${fullTable('变频器故障记录',m.VF)}`;
   return head('生产','生产完成汇总 · 工单进度 · 生产记录 · 变频器售后')+
-  `${H('生产完成汇总',src('生产完成汇总表',m.blank?`已忽略 ${m.blank} 条空白记录`:''))}<div class="kpis">${m.S.map(r=>kpi(esc(arr(r['产品名称'])),num(r['合格套数'])+' / '+num(r['计划生产套数']),`<span class="nb">合格完成率 ${pct(num(r['合格率']))}</span><span class="nb">已发货 ${num(r['已发货套数'])}</span><span class="nb">现存 ${num(r['现存量'])}</span>`,num(r['合格率'])<.5?'w':'')).join('')||'<div class="card empty">暂无数据</div>'}</div>
-  ${H('工单进度',src('生产工单'))}<div class="card panel">${woTable(m)}</div>
-  ${H('明细',src(state.tab==='records'?'生产记录':'变频器使用情况记录 + 变频器故障记录'))}<div class="card panel"><div class="tabs"><button data-tab="records" class="${state.tab==='records'?'on':''}">生产记录 ${m.R.length}</button><button data-tab="after" class="${state.tab==='after'?'on':''}">变频器售后 ${vf.length}</button></div>${state.tab==='records'?rec:after}</div>`},
+  `${H('生产完成汇总',src('生产完成汇总表',m.blank?`已忽略 ${m.blank} 条空白记录`:'')+tgl('生产完成汇总表'))}${state.full['生产完成汇总表']?`<div class="card panel">${fullTable('生产完成汇总表',m.S)}</div>`:`<div class="kpis">${m.S.map(r=>kpi(esc(arr(r['产品名称'])),num(r['合格套数'])+' / '+num(r['计划生产套数']),`<span class="nb">合格完成率 ${pct(num(r['合格率']))}</span><span class="nb">已发货 ${num(r['已发货套数'])}</span><span class="nb">现存 ${num(r['现存量'])}</span>`,num(r['合格率'])<.5?'w':'',null,';生产完成汇总表|'+r.record_id+';')).join('')||'<div class="card empty">暂无数据</div>'}</div>`}
+  ${H('工单进度',src('生产工单')+tgl('生产工单'))}<div class="card panel">${woTable(m)}</div>
+  ${H('明细',src(state.tab==='records'?'生产记录':'变频器使用情况记录 + 变频器故障记录')+tgl(state.tab==='records'?'生产记录':'after'))}<div class="card panel"><div class="tabs"><button data-tab="records" class="${state.tab==='records'?'on':''}">生产记录 ${m.R.length}</button><button data-tab="after" class="${state.tab==='after'?'on':''}">变频器售后 ${vf.length}</button></div>${state.tab==='records'?rec:(state.full.after?afterFull:after)}</div>`},
 
 warehouse(m){
   return head('仓储','物料库存 · 领料对账 · 发货')+
   `<div class="kpis">${kpi('物料种类',m.mats.length,'产品物料基础资料')}${kpi('库存偏低',m.low.length+' 种','剩余库存 < 30%',m.low.length?'w':'')}${kpi('欠领单',m.short.length+' 条','实领 < 应领',m.short.length?'r':'')}${kpi('待发货',m.pendShip.length+' 张','发货清单',m.pendShip.length?'w':'')}</div>
-  <div>${H('物料库存',src('产品物料基础资料'))}<div class="card panel">${table([{h:'编码',cls:'nw',f:r=>esc(r['编码'])},{h:'物料',cls:'tx',f:r=>esc(arr(r['名称']))},{h:'目前库存',cls:'r',f:r=>num(r['目前库存'])},{h:'剩余库存',cls:'r',f:r=>num(r['剩余库存'])},{h:'剩余比例',f:r=>bar(m.ratio(r),m.ratio(r)<LOW)},{h:'供应商',cls:'sec nw',f:r=>esc(arr(r['供应商']))}],m.mats,r=>m.ratio(r)<LOW?'warn':'')}</div></div>
-  <div>${H('领料对账',src('领料记录'))}<div class="card panel">${table([{h:'领料单',cls:'nw',f:r=>esc(String(r['领料单号']).replace(/^LL-/,''))},{h:'物料',cls:'tx',f:r=>esc(arr(r['物料名称']))},{h:'应领',cls:'r',f:r=>num(r['应领数量'])},{h:'实领',cls:'r',f:r=>num(r['实领数量'])}],m.P,r=>num(r['实领数量'])<num(r['应领数量'])?'warn':'')}</div></div>
-  ${H('发货清单',src('发货清单'))}<div class="card panel">${table([{h:'发货单号',cls:'nw',f:r=>esc(r['发货单号'])},{h:'产品',cls:'tx',f:r=>esc(arr(r['产品名称']))},{h:'工单',cls:'nw',f:r=>esc(arr(r['工单号']))},{h:'数量',cls:'r',f:r=>num(r['发货数量'])},{h:'状态',f:r=>pill(r['发货状态'])}],m.F)}</div>`},
+  <div>${H('物料库存',src('产品物料基础资料')+tgl('产品物料基础资料'))}<div class="card panel">${table([{h:'编码',cls:'nw',f:r=>esc(r['编码'])},{h:'物料',cls:'tx',f:r=>esc(arr(r['名称']))},{h:'目前库存',cls:'r',f:r=>num(r['目前库存'])},{h:'剩余库存',cls:'r',f:r=>num(r['剩余库存'])},{h:'剩余比例',f:r=>bar(m.ratio(r),m.ratio(r)<LOW)},{h:'供应商',cls:'sec nw',f:r=>esc(arr(r['供应商']))}],m.mats,r=>m.ratio(r)<LOW?'warn':'','产品物料基础资料')}</div></div>
+  <div>${H('领料对账',src('领料记录')+tgl('领料记录'))}<div class="card panel">${table([{h:'领料单',cls:'nw',f:r=>esc(String(r['领料单号']).replace(/^LL-/,''))},{h:'物料',cls:'tx',f:r=>esc(arr(r['物料名称']))},{h:'应领',cls:'r',f:r=>num(r['应领数量'])},{h:'实领',cls:'r',f:r=>num(r['实领数量'])}],m.P,r=>num(r['实领数量'])<num(r['应领数量'])?'warn':'','领料记录')}</div></div>
+  ${H('发货清单',src('发货清单')+tgl('发货清单'))}<div class="card panel">${table([{h:'发货单号',cls:'nw',f:r=>esc(r['发货单号'])},{h:'产品',cls:'tx',f:r=>esc(arr(r['产品名称']))},{h:'工单',cls:'nw',f:r=>esc(arr(r['工单号']))},{h:'数量',cls:'r',f:r=>num(r['发货数量'])},{h:'状态',f:r=>pill(r['发货状态'])}],m.F,null,'发货清单')}</div>`},
+
+tables(m){
+  const names=Object.keys(state.data.tables);
+  if(!state.dt||!tbl(state.dt))state.dt=names[0];
+  const tn=state.dt,total=names.reduce((a,n)=>a+tbl(n).count,0),s=state.status||{};
+  const why={startup:'启动',poll:'轮询',event:'飞书事件',manual:'手动',cli:'命令行'}[s.last_sync_reason]||'—';
+  return head('数据表','飞书多维表格里全部数据表的全部字段（只读，来自本地缓存）')+
+  `<div class="kpis">${kpi('数据表',names.length+' 张','自动发现，含全部字段')}${kpi('记录总数',total+' 条','全部数据表合计')}${kpi('上次同步',s.last_sync_at?fmtT(s.last_sync_at):'—','北京时间 · 触发：'+why)}${kpi('变更序号',s.seq||0,'累计变更日志条数')}</div>
+  ${H(esc(tn)+' · 全部字段',src(tn))}
+  <div class="card panel"><div class="tabs">${names.map(n=>`<button data-dt="${esc(n)}" class="${n===tn?'on':''}">${esc(n)} ${tbl(n).count}</button>`).join('')}</div>
+  <div class="fbar"><label>搜索<input id="dtQ" type="search" placeholder="在当前表所有字段中查找" value="${esc(state.dtq)}" aria-label="搜索当前数据表"></label><button class="btn sm" id="dtRefresh" title="立即从飞书重新读取（只读，仅限本机打开的页面）">立即刷新</button><span class="hint" id="dtCnt"></span></div>
+  <div id="dtBody">${dtBody()}</div></div>`},
 
 purchase(m){
   const rows=[];
-  m.low.forEach(x=>rows.push({code:x['编码'],name:arr(x['名称']),why:`库存偏低：剩 ${pct(m.ratio(x))}`,sup:arr(x['供应商']),qty:Math.max(0,Math.ceil(num(x['目前库存'])*LOW)-num(x['剩余库存'])),unit:arr(x['单位']),qtyNote:'补至 30%'}));
+  m.low.forEach(x=>rows.push({code:x['编码'],name:arr(x['名称']),why:`库存偏低：剩 ${pct(m.ratio(x))}`,sup:arr(x['供应商']),qty:Math.max(0,Math.ceil(num(x['目前库存'])*LOW)-num(x['剩余库存'])),unit:arr(x['单位']),qtyNote:'补至 30%',refs:[['产品物料基础资料',x.record_id]]}));
   m.short.forEach(p=>{const mat=m.M.find(x=>x['编码']===p['物料编码'])||{};const ex=rows.find(r=>r.code===p['物料编码']);const gap=num(p['应领数量'])-num(p['实领数量']);
-    if(ex){ex.why+=`；欠领 ${gap}`;ex.qty=Math.max(ex.qty,gap);ex.qtyNote='取较大值'}else rows.push({code:p['物料编码'],name:arr(p['物料名称']),why:`欠领 ${gap} ${arr(p['单位'])}（${esc(p['领料单号'])}）`,sup:arr(mat['供应商'])||'—',qty:gap,unit:arr(p['单位']),qtyNote:'补欠领'})});
+    if(ex){ex.refs.push(['领料记录',p.record_id]);ex.why+=`；欠领 ${gap}`;ex.qty=Math.max(ex.qty,gap);ex.qtyNote='取较大值'}else rows.push({code:p['物料编码'],name:arr(p['物料名称']),why:`欠领 ${gap} ${arr(p['单位'])}（${esc(p['领料单号'])}）`,sup:arr(mat['供应商'])||'—',qty:gap,unit:arr(p['单位']),qtyNote:'补欠领',refs:[['领料记录',p.record_id]]})});
   return head('采购','由库存偏低和欠领单自动生成待询价清单')+
   `<div class="kpis">${kpi('待询价',rows.length+' 项','自动生成',rows.length?'w':'')}${kpi('涉及供应商',new Set(rows.map(r=>r.sup)).size+' 家','来自产品物料基础资料')}${kpi('库存偏低',m.low.length+' 种','剩余 < 30%')}${kpi('欠领物料',m.short.length+' 种','来自领料记录')}</div>
-  ${H('待询价清单',src('产品物料基础资料 + 领料记录'))}<div class="card panel">${table([{h:'物料',cls:'tx',f:r=>esc(r.name)+`<br><span class="mut">${esc(r.code)}</span>`},{h:'原因',cls:'tx',f:r=>esc(r.why)},{h:'供应商',cls:'sec tx',f:r=>esc(r.sup)},{h:'建议数量',cls:'r nw',f:r=>`<b>${r.qty}</b> ${esc(r.unit)}<br><span class="mut">${esc(r.qtyNote)}</span>`},{h:'状态',f:r=>'<span class="pill o">待询价</span>'}],rows,()=> 'warn')}</div>
+  ${H('待询价清单',src('产品物料基础资料 + 领料记录'))}<div class="card panel">${table([{h:'物料',cls:'tx',f:r=>esc(r.name)+`<br><span class="mut">${esc(r.code)}</span>`},{h:'原因',cls:'tx',f:r=>esc(r.why)},{h:'供应商',cls:'sec tx',f:r=>esc(r.sup)},{h:'建议数量',cls:'r nw',f:r=>`<b>${r.qty}</b> ${esc(r.unit)}<br><span class="mut">${esc(r.qtyNote)}</span>`},{h:'状态',f:r=>'<span class="pill o">待询价</span>'}],rows,()=> 'warn',null,r=>r.refs)}</div>
   ${H('询价比价',demoSrc())}<div class="demo-box">飞书表里还没有「供应商报价 / MOQ / 交期」字段，询价比价暂无真实数据。建议在飞书新增「采购询价」表；接入后这里会自动替换为真实比价。</div>`}
 };
 
@@ -220,11 +356,18 @@ function finance(){
   <div class="formula">建议批准，但设置两个条件：① 关键物料到货不晚于目标领料日前 2 天；② 单价超过阈值时重新提交审批。</div>
   <button class="btn primary" data-action="approve">批准采购预算</button> <button class="btn" data-action="return">退回采购重新比价</button></div>
   <aside class="card panel"><b>财务查看与写入范围</b>${[['生产/库存/采购汇总','只读','read','读取数量与来源单据，不改业务事实。'],['成本分析与预算意见','可写','write','保存成本版本、估算公式和审批意见。'],['真实付款','首期禁止','deny','不连接银行，不允许 Agent 自动付款。'],['预算超限','强制审批','approval','超过预算或价格阈值须重新提交 CEO。']].map(p=>`<div class="perm"><div><b style="font-size:14px">${p[0]}</b><p>${p[3]}</p></div><span class="k ${p[2]}">${p[1]}</span></div>`).join('')}</aside></div>`}
+function dtRows(){const t=tbl(state.dt);if(!t)return [];const q=(state.dtq||'').trim().toLowerCase();if(!q)return t.records;return t.records.filter(r=>t.fields.some(f=>plain(r[f.name]).toLowerCase().includes(q)))}
+function dtBody(){const rs=dtRows();return fullTable(state.dt,rs)}
 function logs(){
-  const lab={added:'新增',updated:'更新',removed:'删除',table_added:'新增数据表',table_removed:'删除数据表',initial_sync:'首次同步'};
-  const ch=state.changes.slice().reverse();
-  return head('协作日志与结果追溯','飞书表格的每次变更都会自动记录')+
-  `${H('飞书表格变更记录',src('变更日志'))}<div class="card panel">${table([{h:'时间（北京）',cls:'nw',f:c=>fmtT(c.ts)},{h:'数据表',cls:'nw',f:c=>esc(c.table||'—')},{h:'变更',f:c=>`<span class="pill ${c.type==='added'?'g':c.type==='removed'?'r':'b'}">${lab[c.type]||esc(c.type)}</span>`},{h:'内容',cls:'tx',f:c=>c.type==='initial_sync'?'首次同步 '+Object.values(c.counts||{}).reduce((a,b)=>a+b,0)+' 条记录':esc(c.label||'')+(c.fields&&c.fields.length?`<br><span class="mut">字段：${esc(c.fields.slice(0,8).join('、'))}${c.fields.length>8?'…':''}</span>`:'')}],ch)}</div>
+  const all=state.changes.slice().sort((a,b)=>b.seq-a.seq);
+  const tnOf=c=>tnById(c.table_id)||c.table||'';
+  const names=[...new Set([...(state.data?Object.keys(state.data.tables):[]),...all.map(tnOf).filter(Boolean)])];
+  const f=state.lf;
+  const list=all.filter(c=>(!f.tn||tnOf(c)===f.tn||(c.type==='initial_sync'&&c.counts&&f.tn in c.counts))&&(!f.type||c.type===f.type));
+  const shown=list.slice(0,f.n);
+  const sel=(id,opts,val)=>`<select id="${id}">${opts.map(o=>`<option value="${esc(o[0])}"${o[0]===val?' selected':''}>${esc(o[1])}</option>`).join('')}</select>`;
+  return head('协作日志与结果追溯','飞书表格的每次变更都会自动记录；可一键定位到工作台，或直接在飞书中打开对应记录')+
+  `${H('飞书表格变更记录（最新在前）',src('变更日志'))}<div class="card panel"><div class="fbar"><label>数据表${sel('lfT',[['','全部数据表'],...names.map(n=>[n,n])],f.tn)}</label><label>类型${sel('lfY',[['','全部类型'],['added','新增'],['updated','更新'],['removed','删除']],f.type)}</label><span class="hint">共 ${list.length} 条 · 时间均为北京时间（UTC+8）</span></div>${shown.map(chgItem).join('')||'<div class="empty">没有符合条件的变更</div>'}${list.length>shown.length?`<div style="text-align:center;padding-top:10px"><button class="btn" id="lfMore">显示更多（还有 ${list.length-shown.length} 条）</button></div>`:''}</div>
   ${H('Agent 协作链路示例',demoSrc())}<div class="card panel">${table([{h:'序号',f:r=>r[0]},{h:'Agent',cls:'nw',f:r=>r[1]},{h:'动作',cls:'tx',f:r=>r[2]},{h:'读取来源',cls:'sec',f:r=>r[3]},{h:'状态',f:r=>r[4]}],[['01','CEO 总助','解析需求','CEO 指令','完成'],['02','生产 Agent','展开物料需求','产品物料基础资料','完成'],['03','仓储 Agent','核对库存','领料记录、库存','完成'],['04','采购 Agent','供应商比价','报价记录','完成'],['05','财务 Agent','汇总总成本','库存成本、采购方案','完成'],['06','CEO','审批采购预算','全部部门结果','等待审批']].map(r=>r))}</div>`}
 
 /* ---------- 渲染 ---------- */
@@ -232,7 +375,7 @@ function body(){
   const p=state.page;
   if(p==='finance')return finance();
   if(p==='logs'&&true)return logs();
-  if(!state.data){return head({overview:'总览',assistant:'CEO 总助',production:'生产',warehouse:'仓储',purchase:'采购'}[p]||'',state.err||'正在读取飞书数据…','<span class="badge demo">'+(state.fetchFail?'未连接':'读取中')+'</span>')+`<div class="card empty">${esc(state.err||'正在读取飞书多维表格数据…')}</div>`}
+  if(!state.data){return head({overview:'总览',assistant:'CEO 总助',production:'生产',warehouse:'仓储',purchase:'采购',tables:'数据表'}[p]||'',state.err||'正在读取飞书数据…','<span class="badge demo">'+(state.fetchFail?'未连接':'读取中')+'</span>')+`<div class="card empty">${esc(state.err||'正在读取飞书多维表格数据…')}</div>`}
   const m=model();
   if(p==='assistant')return assistant(m);
   return pages[p](m);
@@ -240,13 +383,13 @@ function body(){
 function paint(){
   const y=scrollY;
   const app=$('#app');app.innerHTML=body();
-  wire();renderFoot();renderTags();
+  wire();renderFoot();renderTags();renderDrawer();
   scrollTo(0,y);
 }
 function renderTags(){
   if(!state.data){['nProd','nWh','nBuy'].forEach(i=>$('#'+i).hidden=true);return}
   const m=model();const set=(id,n)=>{const e=$('#'+id);e.hidden=!n;e.textContent=n};
-  set('nProd',m.odd.length+m.unrepaired.length);set('nWh',m.short.length);set('nBuy',m.low.length+m.short.length);
+  set('nProd',m.odd.length+m.unrepaired.length);set('nWh',m.short.length);set('nBuy',m.low.length+m.short.length);{const e=$('#nTbl');if(e)e.textContent=Object.keys(state.data.tables).length+' 张'}
 }
 function renderFoot(){
   const s=state.status,f=$('#foot');
@@ -257,7 +400,26 @@ function renderFoot(){
   f.innerHTML=`<span class="dot ${cls}"></span><b>${!s.ok?'同步异常，显示上次数据':stale?'同步可能延迟':'飞书多维表格已连接'}</b><div class="l2">最后同步 ${fmtT(s.last_sync_at)}（北京）<br>${s.mode==='push'?'实时推送 + 轮询兜底':'每 60 秒轮询'}${state.live?' · 页面实时通道在线':' · 页面每 30 秒自动检查'}</div>`;
 }
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
-function wire(){
+function wireRows(){
+  document.querySelectorAll('#app [data-rs]').forEach(e=>{
+    e.onclick=ev=>{if(ev.target.closest('a,button'))return;openDrawer(parseRs(e.dataset.rs))};
+    e.onkeydown=ev=>{if((ev.key==='Enter'||ev.key===' ')&&ev.target===e){ev.preventDefault();openDrawer(parseRs(e.dataset.rs))}};
+  });
+}
+function wireX(){
+  wireRows();
+  document.querySelectorAll('[data-full]').forEach(b=>b.onclick=()=>{const n=b.dataset.full;state.full[n]=!state.full[n];paint()});
+  document.querySelectorAll('#app [data-loc]').forEach(b=>b.onclick=()=>{const i=b.dataset.loc.indexOf('|');locate(b.dataset.loc.slice(0,i),b.dataset.loc.slice(i+1))});
+  document.querySelectorAll('#app [data-loct]').forEach(b=>b.onclick=()=>{state.dt=b.dataset.loct;state.dtq='';goPage('tables')});
+  document.querySelectorAll('[data-dt]').forEach(b=>b.onclick=()=>{state.dt=b.dataset.dt;state.dtq='';paint()});
+  const q=$('#dtQ');if(q)q.oninput=()=>{state.dtq=q.value;$('#dtBody').innerHTML=dtBody();$('#dtCnt').textContent=state.dtq?`匹配 ${dtRows().length} / ${tbl(state.dt).count} 条`:'';wireRows()};
+  const rf=$('#dtRefresh');if(rf)rf.onclick=async()=>{rf.disabled=true;try{const r=await fetch('/api/base/refresh',{method:'POST'});toast(r.status===403?'仅限在本机打开的页面手动刷新；页面会自动同步':r.ok?'已从飞书重新读取（只读）':'刷新失败，稍后会自动重试')}catch{toast('刷新失败')}rf.disabled=false;loadData()};
+  const refocus=id=>{const e=$('#'+id);if(e)e.focus()};
+  const lt=$('#lfT');if(lt)lt.onchange=()=>{state.lf.tn=lt.value;state.lf.n=40;paint();refocus('lfT')};
+  const ly=$('#lfY');if(ly)ly.onchange=()=>{state.lf.type=ly.value;state.lf.n=40;paint();refocus('lfY')};
+  const lm=$('#lfMore');if(lm)lm.onclick=()=>{state.lf.n+=40;paint()};
+}
+function wire(){wireX();
   document.querySelectorAll('[data-go]').forEach(e=>e.onclick=()=>{location.hash='#/'+e.dataset.go});
   document.querySelectorAll('[data-tab]').forEach(e=>e.onclick=()=>{state.tab=e.dataset.tab;paint()});
   const run=$('#runTask');if(run)run.onclick=()=>toast('示例：协作任务已模拟计算，不会写入飞书');
@@ -268,10 +430,12 @@ function route(){
   const p=PAGES.includes(h)?h:'overview';
   const changed=p!==state.page;state.page=p;
   document.querySelectorAll('.nav').forEach(n=>{const a=n.dataset.p===p;n.classList.toggle('active',a);n.setAttribute('aria-current',a?'page':'false')});
-  document.title='AI Company OS · '+({overview:'总览',assistant:'CEO 总助',production:'生产',warehouse:'仓储',purchase:'采购',finance:'财务',logs:'协作日志'}[p]);
-  paint();if(changed)scrollTo(0,0);
+  document.title='AI Company OS · '+({overview:'总览',assistant:'CEO 总助',production:'生产',warehouse:'仓储',purchase:'采购',finance:'财务',tables:'数据表',logs:'协作日志'}[p]);
+  paint();if(changed)scrollTo(0,0);applyHL();
 }
 document.querySelectorAll('.nav').forEach(n=>n.onclick=()=>{location.hash='#/'+n.dataset.p});
 addEventListener('hashchange',route);
+addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+$('#dbg').onclick=()=>closeDrawer();
 route();loadData();startLive();
 </script></body></html>

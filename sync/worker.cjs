@@ -11,7 +11,7 @@ const feishu = require('../lib/feishu.cjs');
 const { buildOptionMap, normalizeRecord, slimField } = require('../lib/normalize.cjs');
 const { loadEnv } = require('../lib/env.cjs');
 
-const ID_FIELDS = ['工单号', '领料单号', '发货单号', '生产记录编号', '产品编码', '编码', '型号', '名称'];
+const ID_FIELDS = ['领料单号', '发货单号', '生产记录编号', '工单号', '产品编码', '编码', 'S\\N', '型号', '名称'];
 const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 function recordLabel(rec) {
@@ -31,6 +31,7 @@ class BaseSync extends EventEmitter {
     this.snapshot = null;
     this.seq = 0;
     this.queue = Promise.resolve();
+    this.viewCache = new Map(); // table_id → { view_id, view_name, at }(默认视图,用于「在飞书中打开」链接)
     this.pending = new Map(); // table_id → timer
     this.status_ = { started_at: null, last_sync_at: null, last_sync_reason: null, last_error: null, syncing: false, polls: 0,
       events: { subscribe: 'pending', subscribe_error: null, ws: 'off', ws_error: null, received: 0, last_event_at: null } };
@@ -42,6 +43,7 @@ class BaseSync extends EventEmitter {
 
   _load() {
     try { this.snapshot = JSON.parse(fs.readFileSync(this.snapFile, 'utf8')); } catch { this.snapshot = null; }
+    if (this.snapshot) for (const t of Object.values(this.snapshot.tables || {})) if (t.view_id) this.viewCache.set(t.table_id, { view_id: t.view_id, view_name: t.view_name, at: 0 });
     try {
       const lines = fs.readFileSync(this.changesFile, 'utf8').split('\n').filter(Boolean);
       const last = lines.length ? JSON.parse(lines[lines.length - 1]) : null;
@@ -74,18 +76,31 @@ class BaseSync extends EventEmitter {
   syncAll(reason = 'manual') { return this._enqueue(() => this._syncAll(reason)); }
   syncTable(tableId, reason = 'event') { return this._enqueue(() => this._syncTable(tableId, reason)); }
 
+  /* 取第一个表格(grid)视图作为默认视图;缓存 1 小时;读取失败不影响同步(链接退化为只指向数据表) */
+  async _defaultView(tableId) {
+    const hit = this.viewCache.get(tableId);
+    if (hit && Date.now() - hit.at < 3600e3) return hit;
+    try {
+      const vs = await feishu.listViews(this.appToken, tableId);
+      const v = vs.find((x) => x.view_type === 'grid') || vs[0];
+      if (v) { const r = { view_id: v.view_id, view_name: v.view_name, at: Date.now() }; this.viewCache.set(tableId, r); return r; }
+    } catch (e) { this.log('读取视图失败(链接将只指向数据表):', String(e.message).split('\n')[0].slice(0, 120)); }
+    return hit || null;
+  }
+
   async _fetchTable(t, optionsHint) {
-    const [fields, records] = await Promise.all([feishu.listFields(this.appToken, t.table_id), feishu.listRecords(this.appToken, t.table_id)]);
-    return { t, fields, records };
+    const [fields, records, view] = await Promise.all([feishu.listFields(this.appToken, t.table_id), feishu.listRecords(this.appToken, t.table_id), this._defaultView(t.table_id)]);
+    return { t, fields, records, view };
   }
 
   _buildTable(fetched, options, syncedAt) {
-    const { t, fields, records } = fetched;
+    const { t, fields, records, view } = fetched;
     const ctx = { options };
     const recs = {};
     for (const r of records) { const n = normalizeRecord(r, fields, ctx); recs[n.record_id] = n.fields; }
     return {
       table_id: t.table_id, name: t.name, synced_at: syncedAt,
+      view_id: (view && view.view_id) || null, view_name: (view && view.view_name) || null,
       fields: fields.filter((f) => !/^父记录( \d+)?$/.test(f.field_name)).map(slimField),
       count: records.length, records: recs,
     };
@@ -158,12 +173,12 @@ class BaseSync extends EventEmitter {
       if (a && !b) { push({ type: 'table_removed', table_id: tid, table: a.name }); continue; }
       for (const [rid, fields] of Object.entries(b.records)) {
         const old = a.records[rid];
-        if (!old) { push({ type: 'added', table_id: tid, table: b.name, record_id: rid, label: recordLabel({ record_id: rid, fields }), fields: Object.keys(fields).filter((k) => fields[k] !== null) }); continue; }
+        if (!old) { push({ type: 'added', table_id: tid, table: b.name, record_id: rid, label: recordLabel({ record_id: rid, fields }), fields: Object.keys(fields).filter((k) => fields[k] !== null), diff: Object.fromEntries(Object.keys(fields).filter((k) => fields[k] !== null).map((k) => [k, { from: null, to: fields[k] }])) }); continue; }
         const changed = [...new Set([...Object.keys(fields), ...Object.keys(old)])].filter((k) => !eq(fields[k], old[k]));
         if (changed.length) push({ type: 'updated', table_id: tid, table: b.name, record_id: rid, label: recordLabel({ record_id: rid, fields }), fields: changed, diff: Object.fromEntries(changed.map((k) => [k, { from: old[k] ?? null, to: fields[k] ?? null }])) });
       }
       for (const [rid, fields] of Object.entries(a.records)) {
-        if (!b.records[rid]) push({ type: 'removed', table_id: tid, table: a.name, record_id: rid, label: recordLabel({ record_id: rid, fields }), fields: [] });
+        if (!b.records[rid]) push({ type: 'removed', table_id: tid, table: a.name, record_id: rid, label: recordLabel({ record_id: rid, fields }), fields: Object.keys(fields).filter((k) => fields[k] !== null), diff: Object.fromEntries(Object.keys(fields).filter((k) => fields[k] !== null).map((k) => [k, { from: fields[k], to: null }])) });
       }
     }
     return out;
