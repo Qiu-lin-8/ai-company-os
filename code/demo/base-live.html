@@ -1,0 +1,101 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Company OS · 飞书多维表格实时数据</title>
+<style>
+:root{--bg:#f2f4f1;--paper:#fffefa;--ink:#18231d;--muted:#68736c;--line:#dfe5df;--green:#174c3c;--green2:#2a7659;--lime:#dff36b;--blue:#397896;--orange:#e48835;--red:#c94c43;--shadow:0 14px 34px rgba(28,48,38,.075)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei UI","PingFang SC",system-ui,sans-serif}button{font:inherit}a{color:inherit;text-decoration:none}
+.shell{min-height:100vh;display:grid;grid-template-columns:235px 1fr}.side{position:sticky;top:0;height:100vh;background:var(--green);color:white;padding:22px 16px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;padding:0 7px 24px}.logo{width:39px;height:39px;border-radius:11px;background:var(--lime);color:var(--green);display:grid;place-items:center;font-weight:900}.brand b{display:block}.brand small{color:#ffffff8c}.group-title{font-size:9px;color:#ffffff68;letter-spacing:1.3px;padding:12px 10px 5px}.nav{display:block;color:#ffffffb5;padding:10px 11px;border-radius:8px;width:100%;margin:2px 0;font-size:14px}.nav:hover,.nav.active{background:#ffffff17;color:#fff}.nav.active{box-shadow:inset 3px 0 var(--lime)}.side-foot{margin-top:auto;border:1px solid #ffffff1e;border-radius:10px;padding:11px;font-size:10px;color:#ffffff8f;line-height:1.6}.side-foot b{color:#fff}.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--lime);margin-right:6px}.live.off{background:#e48835}
+main{min-width:0;padding:26px 30px 46px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:20px}.top h1{font-size:24px;margin:0}.sub{color:var(--muted);font-size:11px;line-height:1.6;margin-top:5px}.badge{display:inline-flex;padding:6px 9px;border-radius:99px;background:#e4eee8;color:var(--green2);font-size:10px;white-space:nowrap}.badge.warn{background:#fff0dc;color:#a75d1c}
+.card{background:var(--paper);border:1px solid #19322410;border-radius:13px;box-shadow:var(--shadow)}.panel{padding:17px}.section-head{display:flex;justify-content:space-between;align-items:end;margin:21px 0 10px}.section-head h2{font-size:15px;margin:0}.section-head span{font-size:10px;color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{padding:14px}.metric small{color:var(--muted);font-size:10px}.metric b{display:block;font-size:21px;margin:6px 0 3px}.metric em{font-style:normal;font-size:9px;color:var(--green2)}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.7fr);gap:13px}
+.btn{border:1px solid var(--line);background:white;padding:7px 11px;border-radius:8px;cursor:pointer;font-size:11px}.btn.primary{background:var(--green);color:white;border-color:var(--green)}.btn:disabled{opacity:.55;cursor:default}
+.table-wrap{overflow:auto}table{width:100%;min-width:640px;border-collapse:collapse;font-size:10px}th{padding:9px 8px;text-align:left;color:var(--muted);font-weight:500;background:#f2f5f2;white-space:nowrap}td{padding:9px 8px;border-bottom:1px solid #edf0ed;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}.right{text-align:right}.short{color:var(--red);font-weight:700}.good{color:var(--green2)}tr.alert{background:#fff7eb}tr.flash td{animation:flash 2.4s ease-out}@keyframes flash{from{background:#f4fbb7}to{background:transparent}}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.tabs button{border:1px solid var(--line);background:white;padding:6px 9px;border-radius:7px;font-size:10px;cursor:pointer}.tabs button.active{background:var(--green);color:white;border-color:var(--green)}.tabs button i{font-style:normal;opacity:.65;margin-left:4px}
+.sumline{font-size:11px;line-height:1.75;padding:7px 0;border-bottom:1px dashed var(--line)}.sumline:last-child{border:0}.sumline.warn{color:#8f4a14}
+.bar{height:6px;background:#e8eee9;border-radius:9px;overflow:hidden;min-width:70px}.bar i{display:block;height:100%;background:var(--green2)}
+.chip{padding:3px 7px;border-radius:20px;background:#eef1ef;color:var(--muted);font-size:9px;white-space:nowrap}.chip.red{background:#fbe7e4;color:var(--red)}.chip.orange{background:#fff0dc;color:#9c581d}.chip.green{background:#e2f0e8;color:var(--green2)}
+.chg{padding:9px 0;border-bottom:1px solid var(--line);font-size:10px;line-height:1.6}.chg:last-child{border:0}.chg time{display:block;color:var(--muted);font-size:9px}.chg .t{font-weight:700}
+.empty{color:var(--muted);font-size:11px;padding:14px 0}.err{background:#fbe7e4;color:var(--red);padding:10px 12px;border-radius:9px;font-size:11px;margin-bottom:12px;display:none}
+.toast{position:fixed;right:22px;bottom:22px;background:#16231d;color:white;padding:11px 14px;border-radius:9px;font-size:10px;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:none}
+@media(max-width:1050px){.metrics{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}}@media(max-width:720px){.shell{grid-template-columns:1fr}.side{position:static;height:auto}.side .group-title,.side-foot{display:none}main{padding:18px 11px 30px}.top{align-items:flex-start}.badge{display:none}}
+</style></head><body><div class="shell"><aside class="side"><div class="brand"><div class="logo">AC</div><div><b>AI Company OS</b><small>飞书实时数据</small></div></div>
+<nav><div class="group-title">页面</div><a class="nav" href="/department-workbench.html">部门工作台(演示)</a><a class="nav" href="/workflow-demo.html">协作流程(演示)</a><a class="nav" href="/index.html">总览(演示)</a><div class="group-title">真实数据</div><a class="nav active" href="/base-live.html">飞书多维表格</a></nav>
+<div class="side-foot"><b><span class="live" id="dot"></span><span id="linkState">连接中…</span></b>飞书是数据源,本地只做缓存<br>本页只读,不会写回飞书</div></aside>
+<main><div class="top"><div><h1>飞书多维表格 · 实时数据</h1><div class="sub" id="sub">正在读取…</div></div><span class="badge" id="evBadge">—</span></div>
+<div class="err" id="err"></div>
+<div class="metrics" id="metrics"></div>
+<div class="layout"><div>
+<div class="section-head"><h2>项目摘要</h2><span><button class="btn" id="refresh">立即刷新</button></span></div><div class="card panel" id="summary"><div class="empty">加载中…</div></div>
+<div class="section-head"><h2>工单进度</h2><span>来自「生产工单」</span></div><div class="card panel"><div class="table-wrap" id="wo"></div></div>
+<div class="section-head"><h2>数据表</h2><span id="tblMeta"></span></div><div class="card panel"><div class="tabs" id="tabs"></div><div class="table-wrap" id="tbl"></div></div>
+</div><aside>
+<div class="section-head"><h2>库存预警</h2><span>剩余库存偏低的物料</span></div><div class="card panel" id="short"></div>
+<div class="section-head"><h2>最近变更</h2><span>实时推送</span></div><div class="card panel" id="chg"></div>
+</aside></div></main></div><div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct=(x,d=0)=>x==null?'—':(x*100).toFixed(d)+'%';
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function fmtTime(iso){if(!iso)return '—';const d=new Date(iso);return d.toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false})}
+function fmtVal(name,v){
+  if(v==null||v==='')return '<span style="color:#b6beb8">—</span>';
+  if(Array.isArray(v))return esc(v.join('、'));
+  if(typeof v==='number'){ if(/率|进度/.test(name)&&v<=1)return pct(v,v*1000%10?1:0); return v.toLocaleString('zh-CN'); }
+  if(typeof v==='boolean')return v?'是':'否';
+  if(typeof v==='string'&&/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\+08:00$/.test(v)){return esc(v.endsWith('T00:00:00+08:00')?v.slice(0,10):v.slice(0,16).replace('T',' '));}
+  return esc(v);
+}
+let tables=[],cur=null,status=null,flashIds=new Set();
+async function jget(u){const r=await fetch(u,{cache:'no-store'});if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||('HTTP '+r.status));return r.json()}
+function setLink(ok,msg){$('#dot').className='live'+(ok?'':' off');$('#linkState').textContent=msg}
+function renderStatus(){
+  if(!status)return; const ev=status.events||{};
+  let t,warn=false;
+  if(ev.subscribe==='ok'&&ev.ws==='connected'){t='事件推送已开启 + 60 秒轮询兜底'}
+  else{warn=true;t=ev.ws==='connected'?'长连接已连,事件未订阅 · 60 秒轮询':'60 秒轮询模式'}
+  $('#evBadge').textContent=t;$('#evBadge').className='badge'+(warn?' warn':'');
+  $('#sub').textContent='上次同步:'+fmtTime(status.last_sync_at)+'(北京时间) · 数据源:飞书多维表格,本地仅缓存'+(status.last_error?' · 最近一次同步失败:'+status.last_error:'');
+}
+function renderMetrics(){
+  const total=tables.reduce((a,t)=>a+t.count,0);
+  $('#metrics').innerHTML=[['数据表',tables.length,'张,动态发现'],['记录总数',total,'条'],['上次同步',status&&status.last_sync_at?fmtTime(status.last_sync_at).slice(-8):'—',status?('触发:'+({startup:'启动',poll:'轮询',event:'飞书事件',manual:'手动'}[status.last_sync_reason]||status.last_sync_reason||'—')):''],['变更序号',status?status.seq:0,'累计 data/changes.jsonl']]
+   .map(m=>`<div class="card metric"><small>${m[0]}</small><b>${esc(m[1])}</b><em>${esc(m[2])}</em></div>`).join('');
+}
+function renderSummary(s){
+  if(!s.ready){$('#summary').innerHTML='<div class="empty">尚未完成首次同步</div>';return}
+  $('#summary').innerHTML=s.lines.map(l=>`<div class="sumline${l.includes('⚠')?' warn':''}">${esc(l)}</div>`).join('');
+  $('#wo').innerHTML=s.work_orders.length?`<table><thead><tr><th>工单号</th><th>产品</th><th>状态</th><th>进度</th><th class="right">完工/计划</th><th class="right">合格率</th><th class="right">不良</th><th>提示</th></tr></thead><tbody>${s.work_orders.map(w=>`<tr class="${w.flags.length?'alert':''} ${flashIds.has(w.record_id)?'flash':''}"><td>${esc(w.工单号)}</td><td>${esc(w.产品名称)}</td><td><span class="chip ${w.当前状态==='已发货'||w.当前状态==='已完成'?'green':''}">${esc(w.当前状态)}</span></td><td><div class="bar"><i style="width:${Math.round((w.进度||0)*100)}%"></i></div> ${pct(w.进度)}</td><td class="right">${w.已完工数量??0}/${w.计划数量??'?'}</td><td class="right ${w.合格率!=null&&w.合格率<0.9?'short':'good'}">${pct(w.合格率,1)}</td><td class="right">${w.不良数量??0}</td><td>${w.flags.map(f=>`<span class="chip orange" title="${esc(f)}">${esc(f.slice(0,16))}${f.length>16?'…':''}</span>`).join(' ')}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">没有读到「生产工单」</div>';
+  $('#short').innerHTML=s.shortages.length?s.shortages.map(x=>`<div class="chg"><span class="t ${x.level==='short'?'short':''}">${esc(x.名称)}</span> <span class="chip ${x.level==='short'?'red':'orange'}">${x.level==='short'?'缺料':'偏低'}</span><br>${esc(x.编码)} · 剩余 <b>${x.剩余库存}</b> ${esc(x.单位)} / 现有 ${x.目前库存}<br><span style="color:var(--muted)">${esc(x.reason)}${x.供应商?' · 供应商:'+esc(x.供应商):''}</span></div>`).join(''):'<div class="empty">暂无偏低物料</div>';
+  $('#chg').innerHTML=s.recent_changes.length?s.recent_changes.map(c=>`<div class="chg"><time>${fmtTime(c.ts)}</time><span class="t">${esc(c.text)}</span></div>`).join(''):'<div class="empty">同步以来暂无数据变更。飞书里改一格数据,这里会自动出现。</div>';
+}
+async function loadTable(name){
+  cur=name;renderTabs();
+  try{const t=await jget('/api/base/tables/'+encodeURIComponent(name));
+   const cols=t.fields.map(f=>f.name);
+   $('#tblMeta').textContent=`${t.count} 条记录 · 同步于 ${fmtTime(t.synced_at)}`;
+   $('#tbl').innerHTML=t.records.length?`<table><thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${t.records.map(r=>`<tr class="${flashIds.has(r.record_id)?'flash':''}">${cols.map(c=>`<td title="${esc(Array.isArray(r.fields[c])?r.fields[c].join('、'):r.fields[c])}">${fmtVal(c,r.fields[c])}</td>`).join('')}</tr>`).join('')}</tbody></table>`:'<div class="empty">这张表暂时没有记录</div>';
+  }catch(e){$('#tbl').innerHTML='<div class="empty">'+esc(e.message)+'</div>'}
+}
+function renderTabs(){$('#tabs').innerHTML=tables.map(t=>`<button class="${t.name===cur?'active':''}" data-t="${esc(t.name)}">${esc(t.name)}<i>${t.count}</i></button>`).join('');$('#tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>loadTable(b.dataset.t))}
+async function loadAll(){
+  try{
+    const [tb,s]=await Promise.all([jget('/api/base/tables'),jget('/api/base/summary')]);
+    tables=tb.tables;status=tb.status;$('#err').style.display='none';
+    renderStatus();renderMetrics();renderSummary(s);
+    if(!cur||!tables.find(t=>t.name===cur))cur=(tables.find(t=>t.name==='生产工单')||tables[0]||{}).name;
+    renderTabs();if(cur)await loadTable(cur);
+  }catch(e){$('#err').textContent='读取失败:'+e.message+'(首次同步可能还在进行,稍后会自动重试)';$('#err').style.display='block';setTimeout(loadAll,4000)}
+}
+let es,debounce;
+function connect(){
+  es=new EventSource('/api/base/stream');
+  es.addEventListener('hello',()=>{setLink(true,'已连接实时推送')});
+  es.addEventListener('sync',ev=>{
+    const d=JSON.parse(ev.data);
+    if(d.changes&&d.changes.length){flashIds=new Set(d.changes.map(c=>c.record_id).filter(Boolean));toast('飞书数据已更新('+d.changes.length+' 条变更)');setTimeout(()=>flashIds.clear(),3000)}
+    clearTimeout(debounce);debounce=setTimeout(loadAll,200);
+  });
+  es.onerror=()=>setLink(false,'实时推送断开,重连中…');
+}
+$('#refresh').onclick=async()=>{const b=$('#refresh');b.disabled=true;try{const r=await fetch('/api/base/refresh',{method:'POST'});const j=await r.json();toast(j.ok?('已从飞书重新读取,变更 '+j.changes+' 条'):('刷新失败:'+j.error))}catch(e){toast('刷新失败')}b.disabled=false;loadAll()};
+connect();loadAll();setInterval(loadAll,30000);
+</script></body></html>

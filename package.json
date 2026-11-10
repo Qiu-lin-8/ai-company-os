@@ -1,0 +1,16 @@
+{
+  "name": "ai-company-os",
+  "version": "0.2.0",
+  "private": true,
+  "description": "AI Company OS 本地演示 + 飞书多维表格同步服务",
+  "scripts": {
+    "start": "node code/demo/serve.cjs",
+    "sync": "node sync/worker.cjs --once"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@larksuiteoapi/node-sdk": "^1.76.0"
+  }
+}
