@@ -29,6 +29,6 @@
 - `lib/task-runtime.cjs`：解析任务中的产品编码与数量，依次执行 CEO 总助、生产、仓储、采购、财务和人工审批步骤；任务、数据来源、计算结果与审批状态保存到忽略提交的 `data/tasks.json`。
 - 真实字段：物料编码、名称、单位、标准用量、目前库存、剩余库存和供应商全部读取飞书同步快照。
 - 模拟字段：产品与物料的 BOM 归属、预留、在途、安全库存、报价、MOQ、交期、单位成本、税率和运费。页面和接口均明确标记，不写回飞书。
-- 本机任务接口：`GET /api/tasks`、`GET /api/tasks/:id`、`POST /api/tasks/run`、`POST /api/tasks/:id/approve`。所有 `/api/tasks/*` 均拒绝代理或公网请求。
+- 任务接口：`GET /api/tasks`、`GET /api/tasks/:id`、`POST /api/tasks/run`、`POST /api/tasks/:id/approve`。UUMit 公网页面可直接运行和审批演示任务；任务只保存到本机，不写回飞书。
 - 当前审批只更新本地任务状态，`writes_to_feishu` 始终为 `false`；尚未接入大模型，也没有飞书创建、更新或删除记录的代码。
 - 回归测试：`node scripts/test-task-runtime.cjs`。

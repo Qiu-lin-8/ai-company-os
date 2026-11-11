@@ -2,7 +2,7 @@
 /* AI Company OS 部门工作台服务
    - 只提供一个页面:/ 与 /department-workbench.html;其余路径一律 404
    - /api/base/*:飞书多维表格只读数据接口(仅 GET;不返回任何凭据、令牌或环境变量)
-   - /api/tasks/*:仅限本机的任务编排演示(飞书真实数据 + 明确标记的模拟补充数据;不写飞书)
+   - /api/tasks/*:公开任务编排演示(飞书真实数据 + 明确标记的模拟补充数据;不写飞书)
    - 监听 127.0.0.1:8765,UUMit 等隧道把公网流量转发到这里 */
 const http = require('node:http');
 const fs = require('node:fs');
@@ -100,7 +100,6 @@ function readJson(request, maxBytes = 32 * 1024) {
 }
 
 async function handleTaskApi(request, response, url) {
-  if (!isLocalDirect(request)) return json(response, 403, { error: '任务数据、执行和审批目前仅限本机' });
   const p = url.pathname.replace(/\/+$/, '');
   const method = request.method;
 
