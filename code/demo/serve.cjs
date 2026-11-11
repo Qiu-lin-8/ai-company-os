@@ -21,7 +21,7 @@ const PAGE_PATHS = new Set(['/', '/department-workbench.html']);
 const MAX_SSE = 60;
 
 /* ---------- 飞书多维表格同步(只读,不向飞书写入任何内容) ---------- */
-const sync = new BaseSync({ dataDir });
+const sync = new BaseSync({ dataDir, seedChangesFile: path.join(dataDir, 'changes.seed.jsonl') });
 const tasks = new TaskRuntime({ dataDir, getSnapshot: () => sync.getSnapshot() });
 const haveCreds = !!(process.env.FEISHU_APP_ID && process.env.FEISHU_APP_SECRET && process.env.FEISHU_BASE_TOKEN);
 if (haveCreds) sync.start().catch((e) => console.error('[sync] 启动失败:', e.message));

@@ -17,6 +17,7 @@
 
 - `sync/worker.cjs`：只读全量读取多维表格里所有数据表，整理成普通值后写入 `data/snapshot.json`，变更追加到 `data/changes.jsonl`。长连接事件推送 + 每 60 秒轮询兜底。不写飞书、不发群消息。
 - 页面通过 `GET /api/base/data` 取全部表；用 SSE `GET /api/base/stream` 接收更新通知，并每 30 秒检查一次 `GET /api/base/status`（序号变化即重新拉取），所以经 UUMit 公网访问也会跟着表格更新。
+- 可在被 Git 忽略的本机 `data/changes.seed.jsonl` 保存初始变更历史；新部署首次启动时用于恢复协作日志，后续真实变更继续追加到 `data/changes.jsonl`。业务日志不会提交到公开仓库。
 - 配置：复制 `.env.example` 为 `.env` 并填写 `FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_BASE_TOKEN`（`.env`、`data/` 已被 `.gitignore`，不会提交）；`npm install`（依赖 `@larksuiteoapi/node-sdk`）；`npm start` 启动。
 - 后台常驻（Windows）：`Start-Process 'D:\nodejs\node.exe' 'code\demo\serve.cjs' -WorkingDirectory <项目目录> -WindowStyle Hidden -RedirectStandardOutput data\server.log -RedirectStandardError data\server.err.log`；停止：结束命令行包含 `code\demo\serve.cjs` 的 node 进程。
 - 只读接口（GET）：`/api/base/status`（同步状态，不含凭据/错误详情）、`/api/base/data`（全部表记录）、`/api/base/changes?limit=`（变更日志）、`/api/base/stream`（SSE）。`POST /api/base/refresh` 仅限本机直接访问（带代理头的公网请求返回 403）。

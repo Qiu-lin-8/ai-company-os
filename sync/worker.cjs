@@ -38,10 +38,14 @@ class BaseSync extends EventEmitter {
     fs.mkdirSync(this.dataDir, { recursive: true });
     this.snapFile = path.join(this.dataDir, 'snapshot.json');
     this.changesFile = path.join(this.dataDir, 'changes.jsonl');
+    this.seedChangesFile = opts.seedChangesFile || null;
     this._load();
   }
 
   _load() {
+    if (this.seedChangesFile && !fs.existsSync(this.changesFile) && fs.existsSync(this.seedChangesFile)) {
+      fs.copyFileSync(this.seedChangesFile, this.changesFile);
+    }
     try { this.snapshot = JSON.parse(fs.readFileSync(this.snapFile, 'utf8')); } catch { this.snapshot = null; }
     if (this.snapshot) for (const t of Object.values(this.snapshot.tables || {})) if (t.view_id) this.viewCache.set(t.table_id, { view_id: t.view_id, view_name: t.view_name, at: 0 });
     try {
@@ -162,10 +166,11 @@ class BaseSync extends EventEmitter {
     const ts = new Date().toISOString();
     const out = [];
     const push = (c) => out.push({ seq: ++this.seq, ts, reason, ...c });
-    if (!prev) {
+    if (!prev && this.seq === 0) {
       push({ type: 'initial_sync', counts: Object.fromEntries(Object.values(next.tables).map((t) => [t.name, t.count])) });
       return out;
     }
+    if (!prev) return out; // 已加载历史种子时，仅建立当前快照，不重复生成「首次同步」
     const ids = onlyTable ? [onlyTable] : [...new Set([...Object.keys(prev.tables), ...Object.keys(next.tables)])];
     for (const tid of ids) {
       const a = prev.tables[tid], b = next.tables[tid];
