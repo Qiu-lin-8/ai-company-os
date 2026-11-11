@@ -2,6 +2,7 @@
 /* AI Company OS 部门工作台服务
    - 只提供一个页面:/ 与 /department-workbench.html;其余路径一律 404
    - /api/base/*:飞书多维表格只读数据接口(仅 GET;不返回任何凭据、令牌或环境变量)
+   - /api/tasks/*:仅限本机的任务编排演示(飞书真实数据 + 明确标记的模拟补充数据;不写飞书)
    - 监听 127.0.0.1:8765,UUMit 等隧道把公网流量转发到这里 */
 const http = require('node:http');
 const fs = require('node:fs');
@@ -10,6 +11,7 @@ const path = require('node:path');
 const { loadEnv } = require('../../lib/env.cjs');
 loadEnv(path.join(__dirname, '..', '..', '.env'));
 const { BaseSync } = require('../../sync/worker.cjs');
+const { TaskRuntime } = require('../../lib/task-runtime.cjs');
 
 const host = '127.0.0.1';
 const port = Number(process.env.PORT) || 8765;
@@ -20,6 +22,7 @@ const MAX_SSE = 60;
 
 /* ---------- 飞书多维表格同步(只读,不向飞书写入任何内容) ---------- */
 const sync = new BaseSync({ dataDir });
+const tasks = new TaskRuntime({ dataDir, getSnapshot: () => sync.getSnapshot() });
 const haveCreds = !!(process.env.FEISHU_APP_ID && process.env.FEISHU_APP_SECRET && process.env.FEISHU_BASE_TOKEN);
 if (haveCreds) sync.start().catch((e) => console.error('[sync] 启动失败:', e.message));
 else console.warn('[sync] 未配置 FEISHU_APP_ID / FEISHU_APP_SECRET / FEISHU_BASE_TOKEN(见 .env.example),/api/base/* 将返回上次快照或 503。');
@@ -68,6 +71,62 @@ function isLocalDirect(request) {
   return ['127.0.0.1', 'localhost', '[::1]'].includes(hostHeader) && !proxied && (addr === '127.0.0.1' || addr === '::1' || addr === '::ffff:127.0.0.1');
 }
 
+function readJson(request, maxBytes = 32 * 1024) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    let rejected = false;
+    request.setEncoding('utf8');
+    request.on('data', (chunk) => {
+      if (rejected) return;
+      body += chunk;
+      if (Buffer.byteLength(body) > maxBytes) {
+        rejected = true;
+        const error = new Error('请求内容过大');
+        error.statusCode = 413;
+        reject(error);
+      }
+    });
+    request.on('end', () => {
+      if (rejected) return;
+      if (!body) return resolve({});
+      try { resolve(JSON.parse(body)); } catch {
+        const error = new Error('JSON 格式错误');
+        error.statusCode = 400;
+        reject(error);
+      }
+    });
+    request.on('error', reject);
+  });
+}
+
+async function handleTaskApi(request, response, url) {
+  if (!isLocalDirect(request)) return json(response, 403, { error: '任务数据、执行和审批目前仅限本机' });
+  const p = url.pathname.replace(/\/+$/, '');
+  const method = request.method;
+
+  if (method === 'GET' && p === '/api/tasks') {
+    return json(response, 200, { tasks: tasks.list(url.searchParams.get('limit')) });
+  }
+  if (method === 'POST' && p === '/api/tasks/run') {
+    const task = tasks.run(await readJson(request));
+    return json(response, 201, { task });
+  }
+
+  const match = p.match(/^\/api\/tasks\/([^/]+)(?:\/(approve))?$/);
+  if (!match) return json(response, 404, { error: 'unknown task endpoint' });
+  const id = decodeURIComponent(match[1]);
+  if (method === 'GET' && !match[2]) {
+    const task = tasks.get(id);
+    return task ? json(response, 200, { task }) : json(response, 404, { error: '任务不存在' });
+  }
+  if (method === 'POST' && match[2] === 'approve') {
+    const body = await readJson(request);
+    const task = tasks.approve(id, body.note);
+    return task ? json(response, 200, { task }) : json(response, 404, { error: '任务不存在' });
+  }
+  return json(response, 405, { error: 'method not allowed' });
+}
+
 function handleApi(request, response, url) {
   const p = url.pathname.replace(/\/+$/, '');
   const method = request.method;
@@ -114,6 +173,10 @@ const server = http.createServer((request, response) => {
 
   if (url.pathname.startsWith('/api/base/')) {
     try { return handleApi(request, response, url); } catch (e) { return json(response, 500, { error: 'internal error' }); }
+  }
+  if (url.pathname.startsWith('/api/tasks')) {
+    handleTaskApi(request, response, url).catch((error) => json(response, error.statusCode || 500, { error: error.statusCode ? error.message : '任务执行失败' }));
+    return;
   }
 
   if (!PAGE_PATHS.has(url.pathname)) {

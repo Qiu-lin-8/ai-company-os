@@ -5,9 +5,8 @@
 - 开始日期：20261110
 - 当前状态：第一阶段调研已完成（20261110）
 - 主要交付物：`output/AI一人公司多智能体工作台选型报告_20261110.md`
-- 部门工作台（唯一页面）：`code/demo/department-workbench.html`（7个可点击页面，hash 路由 `#/overview` 等；总览/生产/仓储/采购读取飞书多维表格真实数据，CEO 总助/财务为示例数据并有标注；`index.html`、`workflow-demo.html` 已移除）
+- 部门工作台（唯一页面）：`code/demo/department-workbench.html`（8 个可点击页面，hash 路由 `#/overview` 等；业务数据来自飞书实时同步，CEO 总助可运行本地跨部门规则任务；缺失字段使用明确标记的模拟数据）
 - UUMit 客户端：`assets/UUMit-Setup-1.0.4-prod.exe`（官方 OSS 下载；未安装；Windows 显示无 Authenticode 数字签名）
-- 部门工作台（唯一页面）：`code/demo/department-workbench.html`（7个可点击页面，hash 路由 `#/overview` 等；总览/生产/仓储/采购读取飞书多维表格真实数据，CEO 总助/财务为示例数据并有标注；`index.html`、`workflow-demo.html` 已移除）
 - 飞书接入验证（20261110）：官方 Lark CLI v1.0.99 已校验 SHA-256 后安装到 `tools/lark-cli-v1.0.99/`。CLI 自动创建应用成功，但 Base 最小只读授权（app/table/field/record/view read）被当前飞书组织安全策略拒绝；设备授权回收明确返回 `These permissions are restricted by your organization's security policy`。后续不再重复二维码授权，改用目标公司租户内的自建应用、管理员审批和指定多维表格授权。
 - UUMit 公网部署（20261110）：本机服务运行于 `127.0.0.1:8765`，UUMit 服务 `ai-company-os` 已设为公开访问；客户端状态为 `online`、本机目标 `reachable: true`，公网地址 `https://ai-company-os--qiu.uua2a.ai/` 已在真实网络环境验收返回 HTTP 200。
 - GitHub 仓库：`https://github.com/Qiu-lin-8/ai-company-os`（Public，默认分支 `main`）。
@@ -24,3 +23,12 @@
 - 飞书后台所需权限与事件配置：应用身份开通 `bitable:app:readonly`、`docs:event:subscribe`（实时推送，缺它则只轮询）；事件订阅选「长连接」并添加「多维表格记录变更」；发布版本；把应用加为多维表格协作者。
 - 安全提示：公网地址（UUMit）能读到 `/api/base/*` 返回的真实业务数据，不含任何凭据。如需限制访问，请在 UUMit 侧设置访问控制，或在 `serve.cjs` 里加登录/令牌校验。
 - 展示口径：飞书「合格率」公式 = 合格套数 / 计划生产套数，页面显示为「合格完成率」。
+
+## 本地任务编排（20261111）
+
+- `lib/task-runtime.cjs`：解析任务中的产品编码与数量，依次执行 CEO 总助、生产、仓储、采购、财务和人工审批步骤；任务、数据来源、计算结果与审批状态保存到忽略提交的 `data/tasks.json`。
+- 真实字段：物料编码、名称、单位、标准用量、目前库存、剩余库存和供应商全部读取飞书同步快照。
+- 模拟字段：产品与物料的 BOM 归属、预留、在途、安全库存、报价、MOQ、交期、单位成本、税率和运费。页面和接口均明确标记，不写回飞书。
+- 本机任务接口：`GET /api/tasks`、`GET /api/tasks/:id`、`POST /api/tasks/run`、`POST /api/tasks/:id/approve`。所有 `/api/tasks/*` 均拒绝代理或公网请求。
+- 当前审批只更新本地任务状态，`writes_to_feishu` 始终为 `false`；尚未接入大模型，也没有飞书创建、更新或删除记录的代码。
+- 回归测试：`node scripts/test-task-runtime.cjs`。

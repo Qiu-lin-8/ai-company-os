@@ -17,8 +17,6 @@ button{font:inherit}
 .nav:hover{background:rgba(255,255,255,.09);color:#fff}
 .nav.active{background:linear-gradient(90deg,rgba(217,247,107,.17),rgba(255,255,255,.06));border-color:rgba(217,247,107,.18);color:#fff}
 .nav.active:before{content:"";position:absolute;left:-1px;top:9px;bottom:9px;width:3px;border-radius:4px;background:var(--lime);box-shadow:0 0 12px var(--lime)}
-.nav .tag{margin-left:auto;font-size:13px;line-height:1.3;background:var(--orange);color:#fff;border-radius:99px;padding:0 8px}
-.nav .demo-tag{margin-left:auto;font-size:13px;color:rgba(255,255,255,.55)}
 .foot{margin-top:auto;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.12);border-radius:12px;padding:11px 12px;font-size:13px;line-height:1.6;color:rgba(255,255,255,.75)}
 .foot b{color:#fff;font-size:14px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--lime);margin-right:7px;box-shadow:0 0 0 0 rgba(217,247,107,.6);animation:pulse 2.4s infinite}.dot.warn{background:var(--orange);animation:none}.dot.bad{background:#ff7a6e;animation:none}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,247,107,.5)}70%{box-shadow:0 0 0 7px rgba(217,247,107,0)}100%{box-shadow:0 0 0 0 rgba(217,247,107,0)}}
@@ -55,6 +53,9 @@ tr.warn td{background:#fff7ea}tr.bad td{background:#fdeeec}
 .chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:3px 11px;border-radius:99px;background:#eef1ef;color:var(--muted);font-size:13px}.chip.r{background:#fbe7e4;color:var(--red)}.chip.o{background:#fff0dc;color:#9c581d}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}.step{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}.step b{display:block;font-size:14px}.step p{margin:3px 0 0;color:var(--muted);font-size:13px}
 .num{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;margin-bottom:6px}
+.task-compose{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:14px}.task-compose textarea{min-height:68px}.task-compose .btn{min-width:108px}
+.flow-card{padding:18px}.flow-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}.flow-head b{font-size:15px}.flow-head span{color:var(--muted);font-size:13px}.agent-flow{display:grid;grid-template-columns:repeat(6,minmax(130px,1fr));gap:20px}.agent-node{position:relative;min-width:0;padding:13px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;transition:.25s}.agent-node:not(:last-child):after{content:"";position:absolute;z-index:2;top:30px;left:calc(100% + 1px);width:20px;height:1px;background:#cdd8d2}.agent-node:not(:last-child):before{content:"";position:absolute;z-index:3;top:27px;left:calc(100% + 17px);width:6px;height:6px;border-top:1px solid #9fb0a7;border-right:1px solid #9fb0a7;transform:rotate(45deg)}.agent-node .node-top{display:flex;align-items:center;justify-content:space-between;gap:6px}.agent-node .node-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#edf3ef;color:var(--green2);font-weight:800;font-size:12px}.agent-node .node-status{font-size:12px;color:var(--muted)}.agent-node b{display:block;margin-top:9px;font-size:14px}.agent-node p{min-height:34px;margin:4px 0 8px;color:var(--muted);font-size:12px;line-height:1.45}.agent-node small{display:block;padding-top:8px;border-top:1px solid #edf1ee;color:var(--green2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.agent-node.done{border-color:#b8ddc8;background:#f5fbf7}.agent-node.done .node-icon{background:var(--green);color:#fff}.agent-node.done .node-status{color:var(--green2);font-weight:700}.agent-node.running{border-color:#efbf7d;background:#fff9ef;box-shadow:0 0 0 3px rgba(238,151,49,.10)}.agent-node.running .node-icon{background:var(--orange);color:#fff}.agent-node.running .node-status{color:#9a5b16;font-weight:700}.agent-node.waiting{border-color:#efbf7d;background:#fffaf1}.agent-node.waiting .node-status{color:#9a5b16;font-weight:700}.flow-note{margin:13px 0 0;color:var(--muted);font-size:13px}.flow-note b{color:#9a5b16}
+.source-key{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.source-pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:700}.source-pill.real{color:#176545;background:#e6f5ec}.source-pill.mock{color:#8d5718;background:#fff0d9}.task-summary{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:10px;margin-bottom:14px}.task-summary>div{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.task-summary small{display:block;color:var(--muted);font-size:12px}.task-summary b{display:block;margin-top:4px;font-size:15px}.result-block{margin-top:14px}.result-block .h{margin-top:0}.task-warning{margin-top:8px;padding:9px 11px;border-left:3px solid var(--orange);background:#fff8ec;border-radius:7px;color:#765024;font-size:13px}.approval-bar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:14px;padding:13px 15px;border:1px solid #e7c990;background:#fffaf0;border-radius:11px}.approval-bar p{margin:2px 0 0;color:var(--muted);font-size:13px}.approval-bar.approved{border-color:#b8ddc8;background:#f1faf5}.money-grid{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:10px}.money-box{padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.money-box small{display:block;color:var(--muted);font-size:12px}.money-box b{display:block;margin-top:3px;font-size:17px}.money-box.total{border-color:#9ecbb2;background:#f1faf5}.task-error{margin:10px 0;padding:10px 12px;border-radius:9px;background:#fbe7e4;color:var(--red);font-size:13px}
 .perm{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #edf1ee}.perm:last-child{border-bottom:0}.perm p{margin:0;color:var(--muted);font-size:13px}.perm .k{white-space:nowrap;font-size:13px}.k.read{color:var(--blue)}.k.write{color:var(--green2)}.k.approval{color:var(--orange)}.k.deny{color:var(--red)}
 .money{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}.money.total{font-size:16px;font-weight:800;border-top:2px solid var(--green);border-bottom:0}
 .formula{background:#eef4f0;border-left:3px solid var(--green2);padding:10px 14px;border-radius:8px;color:#415048;margin:12px 0}
@@ -85,22 +86,23 @@ tr.hl td{animation:hl 3.2s ease-out}.card.hl{animation:hlc 3.2s ease-out}
 .kv{display:grid;grid-template-columns:minmax(96px,max-content) minmax(0,1fr);gap:0 16px}.kv>div{padding:6px 0;border-bottom:1px solid #edf1ee;word-break:break-word}.kv .k{color:var(--muted);font-size:13px}
 .dsec small{display:block;font-size:13px}.drawer h4{margin:16px 0 2px;font-size:14px}.dsec+.dsec{margin-top:24px;padding-top:12px;border-top:2px solid var(--line)}
 @media(max-width:1180px){.sec{display:none}}
+@media(max-width:1280px){.agent-flow{grid-template-columns:repeat(3,minmax(160px,1fr));gap:12px}.agent-node:after,.agent-node:before{display:none}}
 @media(max-width:1100px){.grid2{grid-template-columns:1fr}}
-@media(max-width:860px){.shell{display:block}.side{min-height:0}.side-in{position:relative;height:auto;padding:12px;overflow:visible}.brand{padding-bottom:10px}.gt,.foot .l2{display:none}.side nav{display:flex;gap:6px;overflow-x:auto}.nav{flex:0 0 auto;width:auto;padding:7px 12px}.nav .tag,.nav .demo-tag{margin-left:4px}.nav.active:before{display:none}.foot{margin-top:10px}main{padding:18px 12px 40px}.top{flex-direction:column}.top h1{font-size:23px}}
+@media(max-width:860px){.shell{display:block}.side{min-height:0}.side-in{position:relative;height:auto;padding:12px;overflow:visible}.brand{padding-bottom:10px}.gt,.foot .l2{display:none}.side nav{display:flex;gap:6px;overflow-x:auto}.nav{flex:0 0 auto;width:auto;padding:7px 12px}.nav.active:before{display:none}.foot{margin-top:10px}main{padding:18px 12px 40px}.top{flex-direction:column}.top h1{font-size:23px}.task-compose{grid-template-columns:1fr}.agent-flow{grid-template-columns:1fr 1fr}.task-summary,.money-grid{grid-template-columns:1fr 1fr}.approval-bar{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style></head><body>
 <a class="skip-link" href="#app">跳到主要内容</a>
 <div class="shell"><aside class="side"><div class="side-in"><div class="brand"><div class="logo">AC</div><div><b>AI Company OS</b><small>部门工作台</small></div></div>
 <nav aria-label="部门工作台导航"><div class="gt">公司协作</div>
 <button class="nav" data-p="overview">总览</button>
-<button class="nav" data-p="assistant">CEO 总助<span class="demo-tag">示例</span></button>
+<button class="nav" data-p="assistant">CEO 总助</button>
 <div class="gt">业务部门</div>
-<button class="nav" data-p="production">生产<span class="tag" id="nProd" hidden></span></button>
-<button class="nav" data-p="warehouse">仓储<span class="tag" id="nWh" hidden></span></button>
-<button class="nav" data-p="purchase">采购<span class="tag" id="nBuy" hidden></span></button>
-<button class="nav" data-p="finance">财务<span class="demo-tag">示例</span></button>
+<button class="nav" data-p="production">生产 Agent</button>
+<button class="nav" data-p="warehouse">仓储 Agent</button>
+<button class="nav" data-p="purchase">采购 Agent</button>
+<button class="nav" data-p="finance">财务 Agent</button>
 <div class="gt">追溯与治理</div>
-<button class="nav" data-p="tables">数据表<span class="demo-tag" id="nTbl"></span></button>
+<button class="nav" data-p="tables">数据表</button>
 <button class="nav" data-p="logs">协作日志</button></nav>
 <div class="foot" id="foot"><span class="dot warn"></span><b>正在连接飞书…</b></div></div></aside>
 <main id="app" tabindex="-1"></main></div><div class="drawer-bg" id="dbg"></div><aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="记录详情" aria-hidden="true"></aside><div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -114,7 +116,7 @@ const pct=n=>Math.round(n*100)+'%';
 const sum=(a,k)=>a.reduce((s,r)=>s+num(r[k]),0);
 const day=v=>String(arr(v)).replace(/T.*/,'');
 const PAGES=['overview','assistant','production','warehouse','purchase','finance','tables','logs'];
-const state={data:null,status:null,changes:[],err:null,tab:'records',page:'overview',live:false,fetchFail:false,seq:null,full:{},dt:null,dtq:'',lf:{tn:'',type:'',n:40},drawer:null,hl:null};
+const state={data:null,status:null,changes:[],err:null,tab:'records',page:'overview',live:false,fetchFail:false,seq:null,full:{},dt:null,dtq:'',lf:{tn:'',type:'',n:40},drawer:null,hl:null,taskStage:-1,taskTimer:null,task:null,taskBusy:false,taskError:null,taskRequest:'我要生产 100 套 TCI-4T3.7GB-L，请核对物料、库存、采购缺口和总成本。'};
 const LOW=0.3;
 
 /* ---------- 时间 ---------- */
@@ -124,11 +126,16 @@ const ago=iso=>{if(!iso)return '—';const s=Math.max(0,(Date.now()-new Date(iso
 
 /* ---------- 取数 ---------- */
 async function getJSON(u){const r=await fetch(u,{cache:'no-store'});const b=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(b.error||('HTTP '+r.status));e.status=r.status;throw e}return b}
+async function postJSON(u,body){const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})});const b=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(b.error||('HTTP '+r.status));e.status=r.status;throw e}return b}
 async function loadData(){
   try{const d=await getJSON('/api/base/data');state.data=d;state.seq=d.seq;state.status=d.status;state.err=null;state.fetchFail=false;
     try{state.changes=(await getJSON('/api/base/changes?limit=500')).changes||[]}catch{}
   }catch(e){state.err=e.status===503?'飞书数据尚未完成首次同步，请稍候…':'无法读取数据：'+e.message;state.fetchFail=!state.data}
   paint();
+}
+async function loadLatestTask(){
+  try{const b=await getJSON('/api/tasks?limit=1');if(b.tasks&&b.tasks[0]){state.task=b.tasks[0];state.taskStage=5;paint()}}
+  catch(e){if(e.status!==403)state.taskError='无法读取任务记录：'+e.message}
 }
 async function pollStatus(){
   try{const s=await getJSON('/api/base/status');state.status=s;state.fetchFail=false;
@@ -306,13 +313,13 @@ production(m){
   const vf=sns.map(sn=>({sn,u:m.VU.find(x=>x['S\\N']===sn)||{},f:m.VF.filter(x=>x['S\\N']===sn)}));
   const after=table([{h:'序列号',cls:'nw',f:r=>esc(r.sn)},{h:'型号',cls:'nw',f:r=>esc(arr(r.u['型号']||(r.f[0]||{})['型号']))},{h:'使用情况',cls:'tx',f:r=>esc(arr(r.u['备注']))||'<span class="mut">—</span>'},{h:'更换',f:r=>r.u['更换']?pill(r.u['更换']==='是'?'已更换':'未更换').replace('pill','pill '+(r.u['更换']==='是'?'o':'')):'—'},{h:'返厂故障',cls:'tx',f:r=>r.f.map(x=>esc(arr(x['返厂故障原因']))).join('；')||'<span class="mut">无</span>'},{h:'维修事项',cls:'sec',f:r=>r.f.map(x=>esc(arr(x['维修事项']))).join('；')},{h:'返厂/完成',cls:'sec nw',f:r=>r.f.map(x=>day(x['返厂时间'])+' → '+(day(x['维修完成时间'])||'维修中')).join('<br>')}],vf,null,null,r=>[...(r.u.record_id?[['变频器使用情况记录',r.u.record_id]]:[]),...r.f.map(x=>['变频器故障记录',x.record_id])]);
   const afterFull=`<div class="mut" style="margin:4px 0">变频器使用情况记录</div>${fullTable('变频器使用情况记录',m.VU)}<div class="mut" style="margin:12px 0 4px">变频器故障记录</div>${fullTable('变频器故障记录',m.VF)}`;
-  return head('生产','生产完成汇总 · 工单进度 · 生产记录 · 变频器售后')+
+  return head('生产 Agent','生产完成汇总 · 工单进度 · 生产记录 · 变频器售后')+
   `${H('生产完成汇总',src('生产完成汇总表',m.blank?`已忽略 ${m.blank} 条空白记录`:'')+tgl('生产完成汇总表'))}${state.full['生产完成汇总表']?`<div class="card panel">${fullTable('生产完成汇总表',m.S)}</div>`:`<div class="kpis">${m.S.map(r=>kpi(esc(arr(r['产品名称'])),num(r['合格套数'])+' / '+num(r['计划生产套数']),`<span class="nb">合格完成率 ${pct(num(r['合格率']))}</span><span class="nb">已发货 ${num(r['已发货套数'])}</span><span class="nb">现存 ${num(r['现存量'])}</span>`,num(r['合格率'])<.5?'w':'',null,';生产完成汇总表|'+r.record_id+';')).join('')||'<div class="card empty">暂无数据</div>'}</div>`}
   ${H('工单进度',src('生产工单')+tgl('生产工单'))}<div class="card panel">${woTable(m)}</div>
   ${H('明细',src(state.tab==='records'?'生产记录':'变频器使用情况记录 + 变频器故障记录')+tgl(state.tab==='records'?'生产记录':'after'))}<div class="card panel"><div class="tabs"><button data-tab="records" class="${state.tab==='records'?'on':''}">生产记录 ${m.R.length}</button><button data-tab="after" class="${state.tab==='after'?'on':''}">变频器售后 ${vf.length}</button></div>${state.tab==='records'?rec:(state.full.after?afterFull:after)}</div>`},
 
 warehouse(m){
-  return head('仓储','物料库存 · 领料对账 · 发货')+
+  return head('仓储 Agent','物料库存 · 领料对账 · 发货')+
   `<div class="kpis">${kpi('物料种类',m.mats.length,'产品物料基础资料')}${kpi('库存偏低',m.low.length+' 种','剩余库存 < 30%',m.low.length?'w':'')}${kpi('欠领单',m.short.length+' 条','实领 < 应领',m.short.length?'r':'')}${kpi('待发货',m.pendShip.length+' 张','发货清单',m.pendShip.length?'w':'')}</div>
   <div>${H('物料库存',src('产品物料基础资料')+tgl('产品物料基础资料'))}<div class="card panel">${table([{h:'编码',cls:'nw',f:r=>esc(r['编码'])},{h:'物料',cls:'tx',f:r=>esc(arr(r['名称']))},{h:'目前库存',cls:'r',f:r=>num(r['目前库存'])},{h:'剩余库存',cls:'r',f:r=>num(r['剩余库存'])},{h:'剩余比例',f:r=>bar(m.ratio(r),m.ratio(r)<LOW)},{h:'供应商',cls:'sec nw',f:r=>esc(arr(r['供应商']))}],m.mats,r=>m.ratio(r)<LOW?'warn':'','产品物料基础资料')}</div></div>
   <div>${H('领料对账',src('领料记录')+tgl('领料记录'))}<div class="card panel">${table([{h:'领料单',cls:'nw',f:r=>esc(String(r['领料单号']).replace(/^LL-/,''))},{h:'物料',cls:'tx',f:r=>esc(arr(r['物料名称']))},{h:'应领',cls:'r',f:r=>num(r['应领数量'])},{h:'实领',cls:'r',f:r=>num(r['实领数量'])}],m.P,r=>num(r['实领数量'])<num(r['应领数量'])?'warn':'','领料记录')}</div></div>
@@ -335,21 +342,54 @@ purchase(m){
   m.low.forEach(x=>rows.push({code:x['编码'],name:arr(x['名称']),why:`库存偏低：剩 ${pct(m.ratio(x))}`,sup:arr(x['供应商']),qty:Math.max(0,Math.ceil(num(x['目前库存'])*LOW)-num(x['剩余库存'])),unit:arr(x['单位']),qtyNote:'补至 30%',refs:[['产品物料基础资料',x.record_id]]}));
   m.short.forEach(p=>{const mat=m.M.find(x=>x['编码']===p['物料编码'])||{};const ex=rows.find(r=>r.code===p['物料编码']);const gap=num(p['应领数量'])-num(p['实领数量']);
     if(ex){ex.refs.push(['领料记录',p.record_id]);ex.why+=`；欠领 ${gap}`;ex.qty=Math.max(ex.qty,gap);ex.qtyNote='取较大值'}else rows.push({code:p['物料编码'],name:arr(p['物料名称']),why:`欠领 ${gap} ${arr(p['单位'])}（${esc(p['领料单号'])}）`,sup:arr(mat['供应商'])||'—',qty:gap,unit:arr(p['单位']),qtyNote:'补欠领',refs:[['领料记录',p.record_id]]})});
-  return head('采购','由库存偏低和欠领单自动生成待询价清单')+
+  return head('采购 Agent','由库存偏低和欠领单自动生成待询价清单')+
   `<div class="kpis">${kpi('待询价',rows.length+' 项','自动生成',rows.length?'w':'')}${kpi('涉及供应商',new Set(rows.map(r=>r.sup)).size+' 家','来自产品物料基础资料')}${kpi('库存偏低',m.low.length+' 种','剩余 < 30%')}${kpi('欠领物料',m.short.length+' 种','来自领料记录')}</div>
   ${H('待询价清单',src('产品物料基础资料 + 领料记录'))}<div class="card panel">${table([{h:'物料',cls:'tx',f:r=>esc(r.name)+`<br><span class="mut">${esc(r.code)}</span>`},{h:'原因',cls:'tx',f:r=>esc(r.why)},{h:'供应商',cls:'sec tx',f:r=>esc(r.sup)},{h:'建议数量',cls:'r nw',f:r=>`<b>${r.qty}</b> ${esc(r.unit)}<br><span class="mut">${esc(r.qtyNote)}</span>`},{h:'状态',f:r=>'<span class="pill o">待询价</span>'}],rows,()=> 'warn',null,r=>r.refs)}</div>
   ${H('询价比价',demoSrc())}<div class="demo-box">飞书表里还没有「供应商报价 / MOQ / 交期」字段，询价比价暂无真实数据。建议在飞书新增「采购询价」表；接入后这里会自动替换为真实比价。</div>`}
 };
 
-/* ---------- 页面(示例数据) ---------- */
+/* ---------- CEO 任务编排(飞书真实数据 + 模拟补充字段) ---------- */
+const moneyFmt=value=>'¥'+Number(value||0).toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+function taskFlow(m){
+  const task=state.task,step=task&&task.steps||[];
+  const nodes=[
+    ['总助','CEO 总助 Agent','理解目标、拆解依赖并分派子任务','等待任务'],
+    ['产','生产 Agent','读取标准用量并生成物料需求',m.W.length+' 张工单'],
+    ['仓','仓储 Agent','核对库存、预留、在途和安全库存',m.short.length+' 项欠领'],
+    ['采','采购 Agent','根据缺口生成补货和报价建议',(m.low.length+m.short.length)+' 项待询价'],
+    ['财','财务 Agent','汇总库存耗用、采购、税费和运费','等待成本计算'],
+    ['批','CEO 人工审批','确认结果后才允许进入写回阶段','人工决策点']
+  ];
+  const started=state.taskStage>=0,approved=task&&task.approval&&task.approval.status==='approved_local_only';
+  return `<div class="card flow-card"><div class="flow-head"><b>任务执行链</b><span>${!started?'尚未启动':approved?'本地审批完成':state.taskStage===nodes.length-1?'已到达人工审批':'正在执行任务'}</span></div><div class="agent-flow">${nodes.map((n,i)=>{
+    let cls='',status='待执行';
+    if(approved||started&&i<state.taskStage){cls='done';status='已完成'}
+    else if(started&&i===state.taskStage){cls=i===nodes.length-1?'waiting':'running';status=i===nodes.length-1?'等待审批':'执行中'}
+    const result=step[i]&&step[i].result||n[3];
+    return `<div class="agent-node ${cls}" data-task-node="${i}"><div class="node-top"><span class="node-icon">${n[0]}</span><span class="node-status">${status}</span></div><b>${n[1]}</b><p>${n[2]}</p><small>${esc(result)}</small></div>`
+  }).join('')}</div><p class="flow-note"><b>当前执行方式：</b>后端规则引擎真实读取飞书数据；缺失字段使用明确标记的模拟值。尚未调用大模型，也不会写入飞书。</p></div>`
+}
+function taskResult(task){
+  if(!task)return '';
+  const r=task.result||{},mats=r.materials||[],quotes=r.purchase_quotes||[],f=r.finance||{},approved=task.approval&&task.approval.status==='approved_local_only';
+  const matRows=mats.map(x=>`<tr class="${x.shortage>0?'warn':''}"><td><b>${esc(x.name)}</b><br><span class="mut">${esc(x.code)}</span></td><td class="r">${x.standard_usage}</td><td class="r"><b>${x.required}</b> ${esc(x.unit)}</td><td class="r">${x.remaining_stock}<br><span class="source-pill real">飞书</span></td><td class="r">${x.reserved} / ${x.in_transit} / ${x.safety_stock}<br><span class="source-pill mock">模拟</span></td><td class="r ${x.shortage>0?'short':'good'}"><b>${x.shortage}</b> ${esc(x.unit)}</td></tr>`).join('');
+  const quoteRows=quotes.map(x=>`<tr><td>${esc(x.material_name)}<br><span class="mut">${esc(x.material_code)}</span></td><td>${esc(x.supplier)}</td><td class="r">${x.order_quantity} ${esc(x.unit)}</td><td class="r">${moneyFmt(x.unit_price)}</td><td class="r">${x.moq}</td><td class="r">${x.lead_days} 天</td><td class="r"><b>${moneyFmt(x.subtotal)}</b><br><span class="source-pill mock">模拟</span></td></tr>`).join('');
+  return `<section class="result-block"><div class="card panel"><div class="flow-head"><b>任务结果 · ${esc(task.id)}</b><div class="source-key"><span class="source-pill real">飞书真实字段</span><span class="source-pill mock">模拟补充字段</span></div></div>
+  <div class="task-summary"><div><small>产品</small><b>${esc(task.input.product_code)}</b></div><div><small>计划数量</small><b>${task.input.quantity} 套</b></div><div><small>物料种类</small><b>${mats.length} 种</b></div><div><small>采购缺口</small><b>${quotes.length} 项</b></div></div>
+  ${H('生产与仓储计算','<span class="src">标准用量和库存来自飞书；预留、在途、安全库存为模拟</span>')}<div class="tw"><table><thead><tr><th>物料</th><th class="r">单套用量</th><th class="r">需求量</th><th class="r">剩余库存</th><th class="r">预留 / 在途 / 安全库存</th><th class="r">最终缺口</th></tr></thead><tbody>${matRows}</tbody></table></div>
+  ${H('采购建议','<span class="source-pill mock">报价、MOQ、交期均为模拟</span>')}<div class="tw"><table><thead><tr><th>物料</th><th>供应商</th><th class="r">建议采购</th><th class="r">含税前单价</th><th class="r">MOQ</th><th class="r">交期</th><th class="r">小计</th></tr></thead><tbody>${quoteRows||'<tr><td colspan="7" class="empty">当前测算没有采购缺口</td></tr>'}</tbody></table></div>
+  ${H('财务测算','<span class="source-pill mock">成本字段均为模拟</span>')}<div class="money-grid"><div class="money-box"><small>库存耗用</small><b>${moneyFmt(f.inventory_use_cost)}</b></div><div class="money-box"><small>采购小计</small><b>${moneyFmt(f.purchase_subtotal)}</b></div><div class="money-box"><small>税额</small><b>${moneyFmt(f.tax)}</b></div><div class="money-box"><small>运费</small><b>${moneyFmt(f.freight)}</b></div><div class="money-box total"><small>预计总成本</small><b>${moneyFmt(f.total_estimate)}</b></div></div>
+  ${(r.warnings||[]).map(w=>`<div class="task-warning">${esc(w)}</div>`).join('')}
+  <div class="approval-bar ${approved?'approved':''}"><div><b>${approved?'已完成本地审批':'等待 CEO 人工审批'}</b><p>${approved?'只更新任务记录，没有写入飞书。':'批准后也只更新本地任务状态；飞书写回尚未开放。'}</p></div>${approved?'<span class="source-pill real">已批准</span>':`<button class="btn primary" id="approveTask" data-task-id="${esc(task.id)}">本地批准（不写飞书）</button>`}</div></div></section>`
+}
 function assistant(m){
-  return head('CEO 总助','协调者只创建任务和汇总结果，不直接修改业务原始记录',demoBadge)+
+  return head('CEO 总助 Agent','读取飞书真实数据，编排生产、仓储、采购和财务规则任务')+
   (m?`${H('今日简报',src('综合各部门表格'))}<div class="card panel">${alertList(m.alerts,6)}</div>`:'')+
-  `${H('任务拆解示例',demoSrc())}<section class="card hero"><h2>向公司下达任务</h2><p>演示：一句 CEO 指令如何拆给生产、仓储、采购、财务（不会真实执行或写入飞书）</p><div style="display:flex;gap:10px;margin-top:12px"><textarea id="req" aria-label="任务内容">我要准备 100 套配件。请生产列清单，仓储核库存，采购处理缺口，财务汇总总成本。</textarea><button class="btn primary" id="runTask">执行任务</button></div></section>
-  <div class="grid2"><div class="card panel"><div class="steps">${[['总助解析需求','识别产品、数量和需要参与的部门。'],['生产生成清单','读取产品物料资料，计算毛需求。'],['仓储核验库存','可用量 = 现有 - 已预留，生成缺口。'],['采购核实缺料','询价比价，比较单价、交期和 MOQ。'],['财务汇总成本','库存耗用 + 采购 + 物流 + 风险准备金。'],['CEO 审批执行','批准后才生成采购任务和飞书写入请求。']].map((s,i)=>`<div class="step"><div class="num">${i+1}</div><b>${s[0]}</b><p>${s[1]}</p></div>`).join('')}</div></div>
-  <aside class="card panel"><b>权限边界</b>${[['所有业务汇总','只读','read','查看生产、仓储、采购、财务摘要和来源。'],['任务与审批记录','可写','write','创建父子任务、更新协作状态。'],['业务原始数据','禁止直接写','deny','不得修改库存、工单完成量、采购价或财务流水。']].map(p=>`<div class="perm"><div><b style="font-size:14px">${p[0]}</b><p>${p[3]}</p></div><span class="k ${p[2]}">${p[1]}</span></div>`).join('')}</aside></div>`}
+  `${H('任务编排与执行','<div class="source-key"><span class="source-pill real">飞书真实数据</span><span class="source-pill mock">缺失字段模拟</span></div>')}<section class="card hero"><h2>向公司下达任务</h2><p>输入产品和数量，系统将生成真实物料需求、模拟补充数据、采购建议和成本测算。</p><div class="task-compose"><textarea id="req" aria-label="任务内容">${esc(state.taskRequest)}</textarea><button class="btn primary" id="runTask" ${state.taskBusy?'disabled':''}>${state.taskBusy?'执行中…':'执行任务'}</button></div>${state.taskError?`<div class="task-error">${esc(state.taskError)}</div>`:''}</section>
+  ${taskFlow(m)}${taskResult(state.task)}<div class="grid2" style="margin-top:14px"><div class="card panel"><b>当前核心能力</b>${[['任务运行时','已实现','write','保存任务、步骤、来源、结果和审批状态。'],['规则型部门 Agent','已实现','write','按顺序完成生产、仓储、采购和财务计算。'],['自然语言大模型','尚未接入','approval','当前用规则提取产品编码和数量，后续可替换为模型解析。']].map(p=>`<div class="perm"><div><b style="font-size:14px">${p[0]}</b><p>${p[3]}</p></div><span class="k ${p[2]}">${p[1]}</span></div>`).join('')}</div>
+  <aside class="card panel"><b>权限边界</b>${[['飞书业务数据','只读','read','读取生产、库存、供应商等真实字段。'],['模拟补充数据','本地生成','write','只用于演示缺失字段，不写回飞书。'],['任务审批记录','本地保存','write','保存审批状态和时间。'],['飞书正式写入','禁止','deny','当前没有创建、更新或删除飞书记录的代码。']].map(p=>`<div class="perm"><div><b style="font-size:14px">${p[0]}</b><p>${p[3]}</p></div><span class="k ${p[2]}">${p[1]}</span></div>`).join('')}</aside></div>`}
 function finance(){
-  return head('财务','把库存耗用和新增采购统一核算，输出预算影响和审批意见',demoBadge)+
+  return head('财务 Agent','把库存耗用和新增采购统一核算，输出预算影响和审批意见',demoBadge)+
   `<div class="demo-box"><b>示例数据</b>：飞书 8 张表里还没有成本 / 单价字段，本页数字是演示。建议在「产品物料基础资料」增加「单价」列，即可由库存 × 单价算出真实占用资金。</div>
   <div class="grid2"><div class="card panel"><div class="formula">项目预计总成本 = 现有库存耗用 ¥255,856 + 缺料采购 ¥129,385 + 物流 ¥3,200 + 风险准备金 ¥7,705 = <b>¥396,146</b></div>
   <div class="money"><span>现有库存耗用成本</span><b>¥255,856</b></div><div class="money"><span>缺料采购预算</span><b>¥129,385</b></div><div class="money"><span>预计物流费用</span><b>¥3,200</b></div><div class="money"><span>风险准备金</span><b>¥7,705</b></div><div class="money total"><span>预计总成本</span><b>¥396,146</b></div>
@@ -383,13 +423,8 @@ function body(){
 function paint(){
   const y=scrollY;
   const app=$('#app');app.innerHTML=body();
-  wire();renderFoot();renderTags();renderDrawer();
+  wire();renderFoot();renderDrawer();
   scrollTo(0,y);
-}
-function renderTags(){
-  if(!state.data){['nProd','nWh','nBuy'].forEach(i=>$('#'+i).hidden=true);return}
-  const m=model();const set=(id,n)=>{const e=$('#'+id);e.hidden=!n;e.textContent=n};
-  set('nProd',m.odd.length+m.unrepaired.length);set('nWh',m.short.length);set('nBuy',m.low.length+m.short.length);{const e=$('#nTbl');if(e)e.textContent=Object.keys(state.data.tables).length+' 张'}
 }
 function renderFoot(){
   const s=state.status,f=$('#foot');
@@ -400,6 +435,27 @@ function renderFoot(){
   f.innerHTML=`<span class="dot ${cls}"></span><b>${!s.ok?'同步异常，显示上次数据':stale?'同步可能延迟':'飞书多维表格已连接'}</b><div class="l2">最后同步 ${fmtT(s.last_sync_at)}（北京）<br>${s.mode==='push'?'实时推送 + 轮询兜底':'每 60 秒轮询'}${state.live?' · 页面实时通道在线':' · 页面每 30 秒自动检查'}</div>`;
 }
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
+function animateTask(){
+  if(state.taskTimer)clearInterval(state.taskTimer);
+  state.taskStage=0;paint();
+  state.taskTimer=setInterval(()=>{
+    if(state.taskStage>=5){clearInterval(state.taskTimer);state.taskTimer=null;return}
+    state.taskStage+=1;paint();
+    if(state.taskStage===5){clearInterval(state.taskTimer);state.taskTimer=null;toast('任务计算完成，等待人工审批')}
+  },900)
+}
+async function runTask(){
+  const req=$('#req'),request=(req&&req.value||state.taskRequest).trim();
+  if(!request){toast('请先输入任务');return}
+  state.taskRequest=request;state.taskBusy=true;state.taskError=null;paint();
+  try{const b=await postJSON('/api/tasks/run',{request});state.task=b.task;state.taskBusy=false;animateTask()}
+  catch(e){state.taskBusy=false;state.taskError=e.status===403?'任务执行目前仅限本机打开的页面':e.message;paint()}
+}
+async function approveTask(){
+  if(!state.task)return;
+  try{const b=await postJSON('/api/tasks/'+encodeURIComponent(state.task.id)+'/approve',{note:'CEO 在工作台本地批准'});state.task=b.task;state.taskStage=5;paint();toast('已完成本地审批，没有写入飞书')}
+  catch(e){state.taskError=e.message;paint()}
+}
 function wireRows(){
   document.querySelectorAll('#app [data-rs]').forEach(e=>{
     e.onclick=ev=>{if(ev.target.closest('a,button'))return;openDrawer(parseRs(e.dataset.rs))};
@@ -422,7 +478,9 @@ function wireX(){
 function wire(){wireX();
   document.querySelectorAll('[data-go]').forEach(e=>e.onclick=()=>{location.hash='#/'+e.dataset.go});
   document.querySelectorAll('[data-tab]').forEach(e=>e.onclick=()=>{state.tab=e.dataset.tab;paint()});
-  const run=$('#runTask');if(run)run.onclick=()=>toast('示例：协作任务已模拟计算，不会写入飞书');
+  const req=$('#req');if(req)req.oninput=()=>{state.taskRequest=req.value};
+  const run=$('#runTask');if(run)run.onclick=runTask;
+  const approve=$('#approveTask');if(approve)approve.onclick=approveTask;
   document.querySelectorAll('[data-action]').forEach(e=>e.onclick=()=>toast(e.dataset.action==='approve'?'已模拟批准，不会写入真实飞书':'已模拟退回采购重新比价'));
 }
 function route(){
@@ -437,5 +495,5 @@ document.querySelectorAll('.nav').forEach(n=>n.onclick=()=>{location.hash='#/'+n
 addEventListener('hashchange',route);
 addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
 $('#dbg').onclick=()=>closeDrawer();
-route();loadData();startLive();
+route();loadData();loadLatestTask();startLive();
 </script></body></html>
